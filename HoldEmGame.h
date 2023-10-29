@@ -1,0 +1,60 @@
+/*
+    HoldEmGame.h
+    Ethan Woolbert: e.d.woolbert@wustl.edu
+    Monish Kumar: k.monish@wustl.edu
+    Jacob Haralson: haralson.j@wustl.edu
+    (HoldEmGame.h) declares the enum for HoldEmState, its operators,
+    and the HoldEmGame class, alongside its 4 member variables,
+    6 member functions, and public constructor.
+*/
+
+// All includes
+#pragma once
+
+#include <vector>
+#include <string>
+
+#include "Suit.h"
+#include "Game.h"
+#include "CardSet_T.h"
+#include "HoldEmDeck.h"
+
+// HoldEmState enum declaration
+enum class HoldEmState
+{
+    preflop,
+    flop,
+    turn,
+    river,
+    undefined
+};
+
+// HoldEmState overloaded operators
+ostream &operator<<(ostream &os, const HoldEmState &hes);
+HoldEmState &operator++(HoldEmState &hes);
+
+/*
+    HoldEmGame class declaration, alongside its 4 member variables,
+    6 member functions, and public constructor
+*/
+class HoldEmGame : public Game
+{
+    // Public constructor and play method
+    public:
+        HoldEmGame(int argc, const char *argv[]);
+        virtual int play();
+
+    protected:
+        // Protected member variables
+        HoldEmDeck hed;
+        HoldEmState hes;
+        std::vector<CardSet <Suits, HoldEmRanks> > hands;
+        CardSet<Suits, HoldEmRanks> board;
+
+        // Protected member functions
+        virtual void deal();
+        void printPlayers();
+        void printBoard();
+        void collectHands();
+        void collectBoard();
+};
