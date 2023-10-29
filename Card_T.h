@@ -35,7 +35,7 @@ std::ostream &operator<<(std::ostream &os, const Card<t_suit, t_rank> &c);
 *   suit is less than the second's
 */
 template <typename t_suit, typename t_rank>
-bool lessRank(const Card<t_suit, t_rank>, const Card<t_suit, t_rank>);
+bool lessRank(const Card<t_suit, t_rank>& c1, const Card<t_suit, t_rank>& c2);
 
 /*
 *   Template declaration for lessSuit function
@@ -44,7 +44,7 @@ bool lessRank(const Card<t_suit, t_rank>, const Card<t_suit, t_rank>);
 *   rank is less than the second's
 */
 template <typename t_suit, typename t_rank>
-bool lessSuit(const Card<t_suit, t_rank>, const Card<t_suit, t_rank>);
+bool lessSuit(const Card<t_suit, t_rank>& c1, const Card<t_suit, t_rank>& c2);
 
 /*
     Declaration of struct Card. It had two member
@@ -60,6 +60,13 @@ struct Card
 
         Card(t_suit s, t_rank r);
 };
+
+/*
+*   Template declaration for lessSuit function
+*   Returns true if first card's suit is less than the second
+*   card's suit or if the suit are equal and the first card's
+*   rank is less than the second's
+*/
 
 // Inclusion gaurds for Card_T.cpp
 #ifdef TEMPLATE_HEADERS_INCLUDE_SOURCE
