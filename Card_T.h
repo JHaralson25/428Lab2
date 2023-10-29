@@ -29,6 +29,24 @@ template <typename t_suit, typename t_rank>
 std::ostream &operator<<(std::ostream &os, const Card<t_suit, t_rank> &c);
 
 /*
+*   Template declaration lessRank function
+*   Returns true if first card's rank is less than the second
+*   card's rank or if the ranks are equal and the first card's
+*   suit is less than the second's
+*/
+template <typename t_suit, typename t_rank>
+bool lessRank(const Card<t_suit, t_rank>, const Card<t_suit, t_rank>);
+
+/*
+*   Template declaration for lessSuit function
+*   Returns true if first card's suit is less than the second
+*   card's suit or if the suit are equal and the first card's
+*   rank is less than the second's
+*/
+template <typename t_suit, typename t_rank>
+bool lessSuit(const Card<t_suit, t_rank>, const Card<t_suit, t_rank>);
+
+/*
     Declaration of struct Card. It had two member
     variables and a default constructor. Is parameterized
     by suit and rank types.
