@@ -95,7 +95,7 @@ We were fortunate enough not to run into any major errors.
 ------------------------------------------------------------------------------
 Example Output:
 
-Pinochle:
+Pinochle Output:
 Without Melds Present:
 Player: A
 JS AD KC 
@@ -189,10 +189,15 @@ Player 3: hundredaces 100
 
 Would you like to end the game? (yes/no): 
 
-------------------------------------------------------------------------------
-        
-        [e.d.woolbert@linuxlab002 428-lab1]$ ./lab1 HoldEm p1 p2 p3 p4 p5 p6 p7 p8 p9 p10
-        Usage: ./lab1 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)
-        
-        [e.d.woolbert@linuxlab002 428-lab1]$ ./lab1 Pinochle p1 p2 p3 p4 p5
-        Usage: ./lab1 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)      
+
+HoldEm Output:
+
+
+
+Example Output When Wrong Input Given (showcasing our usage message):
+
+[k.monish@linuxlab004 428Lab2]$ ./lab2 Pinochle A B C
+Usage: ./lab2 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)
+
+[k.monish@linuxlab004 428Lab2]$ ./lab2 HoldEm A B C D E F G H I J K L M N O P
+Usage: ./lab2 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)
