@@ -128,6 +128,9 @@ void PinochleGame::collectHands()
     }
 }
 
+/*
+    array the stores each meld within the enum class respective point values
+*/
 int PinochleGame::pointValues[] = {
     10,     // dix
     20,     // offsuitmarriage
@@ -146,6 +149,9 @@ int PinochleGame::pointValues[] = {
     1500    // insuitdoublerun
 };
 
+/*
+    array the stores each meld within the enum class respective output strings
+*/
 string PinochleGame::pointStrings[] = {
     "dix",  
     "offsuitmarriage",   
@@ -164,14 +170,21 @@ string PinochleGame::pointStrings[] = {
     "insuitdoublerun"  
 };
 
+/*
+    ostream insertion operator that takes a reference to an ostream and PinochleMeld and displays apprpriate information using the above defined arrays
+*/
 std::ostream &operator<<(ostream& os, const PinochleMelds& pm)
 {
     os << PinochleGame::pointStrings[static_cast<int>(pm)] << PinochleGame::pointValues[static_cast<int>(pm)] << endl;
     return os;
 }
 
+/*
+    suit_independent_evaluation function that that takes a const reference to a CardSet and a reference to a vector of PinochleMelds, iterates through the vector of a copy of the CardSet, and pushes all the melds onto the vector
+*/
 void PinochleGame::suit_independent_evaluation(const CardSet<Suits, PinochleRanks> &cs, vector<PinochleMelds> &pms)
 {
+    //here we copy construct the provided CardSet so as to not interfere with original, and then obtain its private vector member variable employing a scoped pointer
     CardSet<Suits, PinochleRanks> temp(cs);
     std::vector<Card <Suits, PinochleRanks> > CardSet<Suits, PinochleRanks>::*cardsPtr = CardSet<Suits, PinochleRanks>::getVector();
     std::vector<Card <Suits, PinochleRanks> > cardsRef = (temp.*cardsPtr);
@@ -202,6 +215,7 @@ void PinochleGame::suit_independent_evaluation(const CardSet<Suits, PinochleRank
 
     //iterating through hands
     for (long unsigned int i = 0; i < cardsRef.size(); ++i){
+        //we check by rank and then by suit
         if (cardsRef[i].rank == PinochleRanks::ace){
             if (cardsRef[i].suit == Suits::spades){
                 ++as;

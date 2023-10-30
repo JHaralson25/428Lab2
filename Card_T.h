@@ -4,7 +4,7 @@
     Monish Kumar: k.monish@wustl.edu
     Jacob Haralson: haralson.j@wustl.edu
     (Card_T.h) declares a Card struct with 2 public
-    member variables and a default constructor. It
+    member variables, 2 public member function, and a default constructor. It
     also declares an ostream insertion operator for
     Card.
 */

@@ -4,7 +4,7 @@
     Monish Kumar: k.monish@wustl.edu
     Jacob Haralson: haralson.j@wustl.edu
     (PinochleGame.h) declares the PinochleGame class,
-    alongside its 2 member variables, 5 member functions,
+    alongside its 2 member variables, 5 member functions, a friended ostream insertion operator,
     and a public constructor.
 */
 
@@ -20,6 +20,7 @@
 #include "CardSet_T.h"
 #include "PinochleDeck.h"
 
+//declaration of enum class Pinochlemelds that contains the possible melds a player can have
 enum class PinochleMelds {
     dix,
     offsuitmarriage,
