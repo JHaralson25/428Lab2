@@ -77,9 +77,3 @@ int CardSet<Suit, Rank>::get_size()
 {
     return (this->cards.size());
 }
-
-// template <typename Suit, typename Rank>
-// vector<Card <Suit, Rank> > CardSet::* CardSet::getVector()
-// {
-//     return &CardSet::cards;
-// }
