@@ -10,6 +10,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -146,3 +147,167 @@ std::ostream &operator<<(ostream& os, const PinochleMelds& pm)
     os << PinochleGame::pointStrings[static_cast<int>(pm)] << PinochleGame::pointValues[static_cast<int>(pm)] << endl;
     return os;
 }
+
+
+PinochleMelds PinochleGame::suit_independent_evaluation(const CardSet<Suits, PinochleRanks> &cs, vector<PinochleMelds> pms)
+{
+
+        // invoke deep copy constructor
+        CardSet<Suits, PinochleRanks> temp = CardSet(cs);
+    auto vecPtr = CardSet<Suits, PinochleRanks>::getVector();
+    vector<Card<Suits, PinochleRanks>> &cardsRef = temp.*vecPtr;
+    sort(cardsRef.begin(), cardsRef.end(), lessRank);
+
+    //counting aces
+    int as  = 0;
+    int ah = 0;
+    int ad  = 0;
+    int ac = 0;
+
+    //counting kings
+    int ks = 0;
+    int kh = 0;
+    int kd = 0;
+    int kc = 0;
+
+    //counting queens
+    int qs = 0;
+    int qh = 0;
+    int qd = 0;
+    int qc = 0;
+
+    //counting jacks
+    int js = 0;
+    int jh = 0;
+    int jd = 0;
+    int jc = 0;
+
+    //iterating through hands
+    for (int i = 0; i < cardsRef.size(); ++i){
+        if (cardsRef[i].rank == PinochleRanks::ace){
+            if (cardsRef[i].suit == Suits::spades){
+                ++as;
+            }
+            else if (cardsRef[i].suit == Suits::hearts)
+            {
+                ++ah;
+            }
+            else if (cardsRef[i].suit == Suits::diamonds)
+            {
+                ++ad;
+            }
+            else if (cardsRef[i].suit == Suits::clubs)
+            {
+                ++ac;
+            }
+        }
+        else if (cardsRef[i].rank == PinochleRanks::king)
+        {
+            if (cardsRef[i].suit == Suits::spades)
+            {
+                ++ks;
+            }
+            else if (cardsRef[i].suit == Suits::hearts)
+            {
+                ++kh;
+            }
+            else if (cardsRef[i].suit == Suits::diamonds)
+            {
+                ++kd;
+            }
+            else if (cardsRef[i].suit == Suits::clubs)
+            {
+                ++kc;
+            }
+        }
+        else if (cardsRef[i].rank == PinochleRanks::queen)
+        {
+            if (cardsRef[i].suit == Suits::spades)
+            {
+                ++qs;
+            }
+            else if (cardsRef[i].suit == Suits::hearts)
+            {
+                ++qh;
+            }
+            else if (cardsRef[i].suit == Suits::diamonds)
+            {
+                ++qd;
+            }
+            else if (cardsRef[i].suit == Suits::clubs)
+            {
+                ++qc;
+            }
+        }
+        else if (cardsRef[i].rank == PinochleRanks::jack)
+        {
+            if (cardsRef[i].suit == Suits::spades)
+            {
+                ++js;
+            }
+            else if (cardsRef[i].suit == Suits::hearts)
+            {
+                ++jh;
+            }
+            else if (cardsRef[i].suit == Suits::diamonds)
+            {
+                ++jd;
+            }
+            else if (cardsRef[i].suit == Suits::clubs)
+            {
+                ++jc;
+            }
+        }
+    }
+
+    //checking aces
+    if (as == 2 && ah == 2 && ad == 2 && ac == 2) {
+        pms.push_back(PinochleMelds::thousandaces);
+    }
+    else if (as >= 1 && ah >= 1 && ad >=1 && ac >= 1){
+        pms.push_back(PinochleMelds::hundredaces);
+    }
+
+    //checking kings
+    if (ks == 2 && kh == 2 && kd == 2 && kc == 2)
+    {
+        pms.push_back(PinochleMelds::eighthundredkings);
+    }
+    else if (ks >= 1 && kh >= 1 && kd >= 1 && kc >= 1)
+    {
+        pms.push_back(PinochleMelds::eightykings);
+    }
+
+    //checking queens
+    if (qs == 2 && qh == 2 && qd == 2 && qc == 2)
+    {
+        pms.push_back(PinochleMelds::sixhundredqueens);
+    }
+    else if (qs >= 1 && qh >= 1 && qd >= 1 && qc >= 1)
+    {
+        pms.push_back(PinochleMelds::sixtyqueens);
+    }
+
+    // checking jacks
+    if (js == 2 && jh == 2 && jd == 2 && jc == 2)
+    {
+        pms.push_back(PinochleMelds::fourhundredjacks);
+    }
+    else if (js >= 1 && jh >= 1 && jd >= 1 && jc >= 1)
+    {
+        pms.push_back(PinochleMelds::fortyjacks);
+    }
+
+    //checking for pinochle combos
+    if (jd == 2 && qs == 2){
+        pms.push_back(PinochleMelds::doublepinochle);
+    }
+    else if (jd >= 2 && qs >= 2){
+        pms.push_back(PinochleMelds::pinochle);
+    }
+
+}
+
+
+
+

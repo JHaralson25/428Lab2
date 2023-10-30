@@ -63,4 +63,6 @@ class PinochleGame : public Game
         virtual void deal();
         void printPlayers();
         void collectHands();
+    private:
+        PinochleMelds suit_independent_evaluation(const CardSet<Suits, PinochleRanks> & cs, vector<PinochleMelds> pms);
 };
