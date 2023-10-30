@@ -88,6 +88,103 @@ Global values:
     to play the game Pinochle.
 
 ------------------------------------------------------------------------------
+Example Output:
+
+Pinochle:
+Without Melds:
+Player: A
+JS AD KC 
+KS JC KD 
+JC JS JH 
+QS QH 10D 
+
+Player: B
+9H JH QD 
+KC 10S QD 
+10C 10H KD 
+QC AD 10H 
+
+Player: C
+9C 10S 10C 
+JD KH 9D 
+AH QH AH 
+QC KH 9S 
+
+Player: D
+JD AS AC 
+AC 9D QS 
+AS 9S KS 
+10D 9H 9C 
+
+
+
+
+
+Would you like to end the game? (yes/no): 
+
+With Melds:
+Player: A
+QS JD KD 
+9D 10H QS 
+QD AC QH 
+10C 10D KC 
+
+Player: B
+KS 10S 10C 
+KH 9D QC 
+9S 9H 9H 
+QD AH 10S 
+
+Player: C
+JH JC 9S 
+9C JS JH 
+AS AS KC 
+QH 9C QC 
+
+Player: D
+JC 10D JS 
+JD AD AH 
+10H KS KD 
+AC AD KH 
+
+
+
+
+
+Would you like to end the game? (yes/no): 
+no
+Player: A
+KH KD JD 
+9C QH QS 
+9S JC 9D 
+AC QS QC 
+
+Player: B
+10H 9H 10D 
+10S KS QD 
+QD AH JH 
+9D AS KC 
+
+Player: C
+AH QH 10C 
+KH AC 10S 
+AS 10H AD 
+10D 9C JH 
+
+Player: D
+JC KC KD 
+9S 10C 9H 
+KS AD JD 
+JS JS QC 
+
+
+
+Player 3: hundredaces 100
+ 
+
+Would you like to end the game? (yes/no): 
+
+------------------------------------------------------------------------------
         
         [e.d.woolbert@linuxlab002 428-lab1]$ ./lab1 HoldEm p1 p2 p3 p4 p5 p6 p7 p8 p9 p10
         Usage: ./lab1 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)
