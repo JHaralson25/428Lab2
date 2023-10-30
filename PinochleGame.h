@@ -4,7 +4,7 @@
     Monish Kumar: k.monish@wustl.edu
     Jacob Haralson: haralson.j@wustl.edu
     (PinochleGame.h) declares the PinochleGame class,
-    alongside its 2 member variables, 4 member functions,
+    alongside its 2 member variables, 5 member functions,
     and a public constructor.
 */
 
@@ -62,6 +62,7 @@ class PinochleGame : public Game
         // Protected member functions
         virtual void deal();
         void printPlayers();
+        void printMelds();
         void collectHands();
     private:
         void suit_independent_evaluation(const CardSet<Suits, PinochleRanks> & cs, vector<PinochleMelds> &pms);
