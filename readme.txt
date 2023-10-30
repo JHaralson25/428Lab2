@@ -88,6 +88,11 @@ Global values:
     to play the game Pinochle.
 
 ------------------------------------------------------------------------------
+
+Errors:
+We were fortunate enough not to run into any major errors.
+
+------------------------------------------------------------------------------
 Example Output:
 
 Pinochle:
