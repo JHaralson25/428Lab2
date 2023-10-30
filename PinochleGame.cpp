@@ -104,3 +104,21 @@ void PinochleGame::collectHands()
         pd.collect(hands[i]);
     }
 }
+
+int PinochleGame::pointValues[] = {
+    10,     // dix
+    20,     // offsuitmarriage
+    40,     // fortyjacks
+    40,     // pinochle
+    40,     // insuitmarriage
+    60,     // sixtyqueens
+    80,     // eightykings
+    100,    // hundredaces
+    150,    // insuitrun
+    300,    // doublepinochle
+    400,    // fourhundredjacks
+    600,    // sixhundredqueens
+    800,    // eighthundredkings
+    1000,   // thousandaces
+    1500    // insuitdoublerun
+};

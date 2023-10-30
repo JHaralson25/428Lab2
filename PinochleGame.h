@@ -30,6 +30,7 @@ class PinochleGame : public Game
         PinochleGame(int argc, const char *argv[]);
         virtual int play();
 
+        static int pointValues[];
     protected:
         // Protected member variables
         PinochleDeck pd;
@@ -39,4 +40,22 @@ class PinochleGame : public Game
         virtual void deal();
         void printPlayers();
         void collectHands();
+};
+
+enum class PinochleMelds {
+    dix,
+    offsuitmarriage,
+    fortyjacks,
+    pinochle,
+    insuitmarriage,
+    sixtyqueens,
+    eightykings,
+    hundredaces,
+    insuitrun,
+    doublepinochle,
+    fourhundredjacks,
+    sixhundredqueens,
+    eighthundredkings,
+    thousandaces,
+    insuitdoublerun
 };
