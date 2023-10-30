@@ -11,6 +11,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -252,11 +253,24 @@ string HoldEmGame::stringVals[] = {
     "fullhouse",
     "fourofakind",
     "straightflush",
-    "undefinded"
+    "undefined"
 };
 
 std::ostream& operator<<(ostream& os, const HoldEmHandRank& hehr)
 {
     os << HoldEmGame::stringVals[static_cast<int>(hehr)] << endl;
     return os;
+}
+
+HoldEmHandRank HoldEmGame::holdem_hand_evaluation(const CardSet<Suits, HoldEmRanks> &hand) {
+    CardSet<Suits, HoldEmRanks> temp(hand);
+    vector<Card <Suits, HoldEmRanks> > CardSet<Suits, HoldEmRanks>::* cardsPtr = CardSet<Suits, HoldEmRanks>::getVector();
+    vector<Card <Suits, HoldEmRanks> > cardsRef = (temp.*cardsPtr);
+
+    sort(cardsRef.begin(), cardsRef.end(), lessRank<Suits, HoldEmRanks>);
+    sort(cardsRef.begin(), cardsRef.end(), lessSuit<Suits, HoldEmRanks>);
+
+    if (cardsRef.size() != 5) {
+        return HoldEmHandRank::undefined
+    }
 }

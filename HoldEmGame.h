@@ -39,7 +39,7 @@ enum class HoldEmHandRank {
     fullhouse,
     fourofakind,
     straightflush,
-    undefinded
+    undefined
 };
 
 // HoldEmState overloaded operators
@@ -72,4 +72,6 @@ class HoldEmGame : public Game
         void printBoard();
         void collectHands();
         void collectBoard();
+    private:
+        HoldEmHandRank holdem_hand_evaluation(const CardSet<Suits, HoldEmRanks> &hand);
 };
