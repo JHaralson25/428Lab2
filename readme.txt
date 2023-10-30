@@ -96,6 +96,7 @@ We were fortunate enough not to run into any major errors.
 Example Output:
 
 Pinochle Output:
+
 Without Melds Present:
 Player: A
 JS AD KC 
@@ -128,36 +129,7 @@ AS 9S KS
 Would you like to end the game? (yes/no): 
 
 With Melds Present:
-Player: A
-QS JD KD 
-9D 10H QS 
-QD AC QH 
-10C 10D KC 
 
-Player: B
-KS 10S 10C 
-KH 9D QC 
-9S 9H 9H 
-QD AH 10S 
-
-Player: C
-JH JC 9S 
-9C JS JH 
-AS AS KC 
-QH 9C QC 
-
-Player: D
-JC 10D JS 
-JD AD AH 
-10H KS KD 
-AC AD KH 
-
-
-
-
-
-Would you like to end the game? (yes/no): 
-no
 Player: A
 KH KD JD 
 9C QH QS 
