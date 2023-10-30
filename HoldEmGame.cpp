@@ -220,7 +220,7 @@ bool operator<(const HoldEmGame::HandInfo& hi1, const HoldEmGame::HandInfo& hi2)
     }
 
     if ((hi1.handRank == HoldEmHandRank::straight && hi2.handRank == HoldEmHandRank::straight) || (hi1.handRank == HoldEmHandRank::straightflush && hi2.handRank == HoldEmHandRank::straightflush)) {
-        if (cardsRef1[HOLD_EM_TOTAL_HAND_SIZE - 1].rank < cardsRef2[HOLD_EM_TOTAL_HAND_SIZE - 1].rank) {
+        if (cardsRef1[0].rank < cardsRef2[0].rank) {
             return true;
         }
 
