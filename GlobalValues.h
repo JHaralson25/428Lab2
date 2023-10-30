@@ -19,6 +19,12 @@ const int HOLD_EM_HAND_SIZE = 2;
 // Number of players that can play Pinochle
 const int PINOCHLE_PLAYER_CT = 4;
 
+// Count of cards required for the "Major" Pinochle Melds
+const int PINOCHLE_MAJOR_CT = 2;
+
+// Count of cards required for the "Minor" Pinochle Melds
+const int PINOCHLE_MINOR_CT = 1;
+
 /*
     Minimum and maximum number of players that can
     play Hold'em at any given time.

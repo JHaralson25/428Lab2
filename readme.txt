@@ -74,17 +74,21 @@ Global values:
 
 6. PINOCHLE_PLAYER_CT (4): Required number of players for Pinochle.
 
-7. MIN_HOLD_EM_PLAYER_CT (2): The minimum number of players that can play Hold 'Em.
+7. PINOCHLE_MAJOR_CT (2): Count of cards required for the "Major" Pinochle Melds
 
-8. MAX_HOLD_EM_PLAYER_CT (9): The maximum number of players that can play Hold 'Em.
+8. PINOCHLE_MINOR_CT (1): Count of cards required for the "Minor" Pinochle Melds
 
-9. HOLD_EM_FLOP_SIZE (3): Size of the flop for Hold 'Em. Will most likely never be
+9. MIN_HOLD_EM_PLAYER_CT (2): The minimum number of players that can play Hold 'Em.
+
+10. MAX_HOLD_EM_PLAYER_CT (9): The maximum number of players that can play Hold 'Em.
+
+11. HOLD_EM_FLOP_SIZE (3): Size of the flop for Hold 'Em. Will most likely never be
     changed.
 
-10. HOLD_EM_NAME_STR ("HoldEm"): Name that a player should pass to the program in order
+12. HOLD_EM_NAME_STR ("HoldEm"): Name that a player should pass to the program in order
     to play the game Hold 'Em.
 
-11. PINOCHLE_NAME_STR ("Pinochle") Name that a player should pass to the program in order
+13. PINOCHLE_NAME_STR ("Pinochle") Name that a player should pass to the program in order
     to play the game Pinochle.
 
 ------------------------------------------------------------------------------

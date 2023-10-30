@@ -293,48 +293,52 @@ void PinochleGame::suit_independent_evaluation(const CardSet<Suits, PinochleRank
     }
 
     //checking aces
-    if (as == 2 && ah == 2 && ad == 2 && ac == 2) {
+    if (as == PINOCHLE_MAJOR_CT && ah == PINOCHLE_MAJOR_CT && ad == PINOCHLE_MAJOR_CT && ac == PINOCHLE_MAJOR_CT)
+    {
         pms.push_back(PinochleMelds::thousandaces);
     }
-    else if (as >= 1 && ah >= 1 && ad >=1 && ac >= 1){
+    else if (as >= PINOCHLE_MINOR_CT && ah >= PINOCHLE_MINOR_CT && ad >= PINOCHLE_MINOR_CT && ac >= PINOCHLE_MINOR_CT)
+    {
         pms.push_back(PinochleMelds::hundredaces);
     }
 
     //checking kings
-    if (ks == 2 && kh == 2 && kd == 2 && kc == 2)
+    if (ks == PINOCHLE_MAJOR_CT && kh == PINOCHLE_MAJOR_CT && kd == PINOCHLE_MAJOR_CT && kc == PINOCHLE_MAJOR_CT)
     {
         pms.push_back(PinochleMelds::eighthundredkings);
     }
-    else if (ks >= 1 && kh >= 1 && kd >= 1 && kc >= 1)
+    else if (ks >= PINOCHLE_MINOR_CT && kh >= PINOCHLE_MINOR_CT && kd >= PINOCHLE_MINOR_CT && kc >= PINOCHLE_MINOR_CT)
     {
         pms.push_back(PinochleMelds::eightykings);
     }
 
     //checking queens
-    if (qs == 2 && qh == 2 && qd == 2 && qc == 2)
+    if (qs == PINOCHLE_MAJOR_CT && qh == PINOCHLE_MAJOR_CT && qd == PINOCHLE_MAJOR_CT && qc == PINOCHLE_MAJOR_CT)
     {
         pms.push_back(PinochleMelds::sixhundredqueens);
     }
-    else if (qs >= 1 && qh >= 1 && qd >= 1 && qc >= 1)
+    else if (qs >= PINOCHLE_MINOR_CT && qh >= PINOCHLE_MINOR_CT && qd >= PINOCHLE_MINOR_CT && qc >= PINOCHLE_MINOR_CT)
     {
         pms.push_back(PinochleMelds::sixtyqueens);
     }
 
     // checking jacks
-    if (js == 2 && jh == 2 && jd == 2 && jc == 2)
+    if (js == PINOCHLE_MAJOR_CT && jh == PINOCHLE_MAJOR_CT && jd == PINOCHLE_MAJOR_CT && jc == PINOCHLE_MAJOR_CT)
     {
         pms.push_back(PinochleMelds::fourhundredjacks);
     }
-    else if (js >= 1 && jh >= 1 && jd >= 1 && jc >= 1)
+    else if (js >= PINOCHLE_MINOR_CT && jh >= PINOCHLE_MINOR_CT && jd >= PINOCHLE_MINOR_CT && jc >= PINOCHLE_MINOR_CT)
     {
         pms.push_back(PinochleMelds::fortyjacks);
     }
 
     //checking for pinochle combos
-    if (jd == 2 && qs == 2){
+    if (jd == PINOCHLE_MAJOR_CT && qs == PINOCHLE_MAJOR_CT)
+    {
         pms.push_back(PinochleMelds::doublepinochle);
     }
-    else if (jd >= 2 && qs >= 2){
+    else if (jd >= PINOCHLE_MINOR_CT && qs >= PINOCHLE_MINOR_CT)
+    {
         pms.push_back(PinochleMelds::pinochle);
     }
 }
