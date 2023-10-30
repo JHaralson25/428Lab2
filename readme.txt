@@ -135,32 +135,33 @@ Would you like to end the game? (yes/no):
 With Melds Present:
 
 Player: A
-KH KD JD 
-9C QH QS 
-9S JC 9D 
-AC QS QC 
+QH AH 10S 
+9C QC 10H 
+KS KS AC 
+JC AS QS 
 
 Player: B
-10H 9H 10D 
-10S KS QD 
-QD AH JH 
-9D AS KC 
+JH AS AD 
+10D QD AH 
+KH KC QD 
+JC 9D AC 
 
 Player: C
-AH QH 10C 
-KH AC 10S 
-AS 10H AD 
-10D 9C JH 
+10C JH KD 
+QH JD 9C 
+KD QS 9D 
+JS 10C QC 
 
 Player: D
-JC KC KD 
-9S 10C 9H 
-KS AD JD 
-JS JS QC 
+KH 10S 10D 
+9S JS AD 
+9S 10H 9H 
+JD KC 9H 
 
 
-
-Player 3: hundredaces 100
+Player 2: hundredaces 100
+ 
+Player 3: pinochle 40
  
 
 Would you like to end the game? (yes/no): 
