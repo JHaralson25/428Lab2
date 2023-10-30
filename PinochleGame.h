@@ -13,6 +13,7 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 
 #include "Suit.h"
 #include "Game.h"
@@ -31,6 +32,8 @@ class PinochleGame : public Game
         virtual int play();
 
         static int pointValues[];
+        static string pointStrings[];
+        friend PinochleGame operator<< (ostream&,const PinochleMelds&);
     protected:
         // Protected member variables
         PinochleDeck pd;

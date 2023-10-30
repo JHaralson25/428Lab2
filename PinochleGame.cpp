@@ -122,3 +122,25 @@ int PinochleGame::pointValues[] = {
     1000,   // thousandaces
     1500    // insuitdoublerun
 };
+
+string PinochleGame::pointStrings[] = {
+    "dix",  
+    "offsuitmarriage",   
+    "fortyjacks",  
+    "pinochle",   
+    "insuitmarriage",   
+    "sixtyqueens",   
+    "eightykings",   
+    "hundredaces", 
+    "insuitrun", 
+    "doublepinochke",  
+    "fourhundredjacks",  
+    "sixhundredqueens",  
+    "eighthundredkings",  
+    "thousandaces", 
+    "insuitdoublerun"  
+};
+
+PinochleGame operator<<(ostream & os, const PinochleMelds & pm){
+    cout << PinochleGame::pointStrings[static_cast<int>(pm)] << PinochleGame::pointValues[static_cast<int>(pm)] << endl;
+}
