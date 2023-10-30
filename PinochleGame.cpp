@@ -141,6 +141,8 @@ string PinochleGame::pointStrings[] = {
     "insuitdoublerun"  
 };
 
-PinochleGame operator<<(ostream & os, const PinochleMelds & pm){
-    cout << PinochleGame::pointStrings[static_cast<int>(pm)] << " " <<PinochleGame::pointValues[static_cast<int>(pm)] << endl;
+std::ostream &operator<<(ostream& os, const PinochleMelds& pm)
+{
+    os << PinochleGame::pointStrings[static_cast<int>(pm)] << PinochleGame::pointValues[static_cast<int>(pm)] << endl;
+    return os;
 }

@@ -20,31 +20,6 @@
 #include "CardSet_T.h"
 #include "PinochleDeck.h"
 
-/*
-    PinochleGame class declaration, alongside its 2 member variables,
-    4 member functions, and public constructor.
-*/
-class PinochleGame : public Game
-{
-    // Public constructor and play method
-    public:
-        PinochleGame(int argc, const char *argv[]);
-        virtual int play();
-
-        static int pointValues[];
-        static string pointStrings[];
-        friend PinochleGame operator<< (ostream&,const PinochleMelds&);
-    protected:
-        // Protected member variables
-        PinochleDeck pd;
-        std::vector<CardSet <Suits, PinochleRanks> > hands;
-
-        // Protected member functions
-        virtual void deal();
-        void printPlayers();
-        void collectHands();
-};
-
 enum class PinochleMelds {
     dix,
     offsuitmarriage,
@@ -61,4 +36,31 @@ enum class PinochleMelds {
     eighthundredkings,
     thousandaces,
     insuitdoublerun
+};
+
+std::ostream &operator<<(ostream&, const PinochleMelds&);
+
+/*
+    PinochleGame class declaration, alongside its 2 member variables,
+    4 member functions, and public constructor.
+*/
+class PinochleGame : public Game
+{
+    // Public constructor and play method
+    public:
+        PinochleGame(int argc, const char *argv[]);
+        virtual int play();
+
+        static int pointValues[];
+        static string pointStrings[];
+        friend std::ostream &operator<<(ostream& os, const PinochleMelds& pm);
+    protected:
+        // Protected member variables
+        PinochleDeck pd;
+        std::vector<CardSet <Suits, PinochleRanks> > hands;
+
+        // Protected member functions
+        virtual void deal();
+        void printPlayers();
+        void collectHands();
 };

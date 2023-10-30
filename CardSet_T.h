@@ -29,7 +29,7 @@ class CardSet
         CardSet<Suit, Rank> &operator>>(CardSet<Suit, Rank> &cs);
         bool is_empty();
         int get_size();
-        static const std::vector CardSet::*getVector()
+        static const std::vector<Card <Suit, Rank> > * CardSet::*getVector()
         {
             return &CardSet::cards;
         }
