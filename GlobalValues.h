@@ -15,6 +15,7 @@ const int CMD_START_IDX = 2;
 */
 const int PINOCHLE_DEAL_SIZE = 3;
 const int HOLD_EM_HAND_SIZE = 2;
+const int HOLD_EM_TOTAL_HAND_SIZE = 5;
 
 // Number of players that can play Pinochle
 const int PINOCHLE_PLAYER_CT = 4;

@@ -263,6 +263,8 @@ bool operator<(const HoldEmGame::HandInfo& hi1, const HoldEmGame::HandInfo& hi2)
 
         return false;
     }
+
+    return false;
 }
 
 /*
