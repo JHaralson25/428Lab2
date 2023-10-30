@@ -541,7 +541,7 @@ HoldEmHandRank HoldEmGame::holdem_hand_evaluation(const CardSet<Suits, HoldEmRan
         }
     }
 
-    //C heck for flush
+    // Check for flush
     if (numClubs == 5 || numSpades == 5 || numDiamonds == 5 || numHearts == 5) {
         return HoldEmHandRank::flush;
     }
