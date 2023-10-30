@@ -91,7 +91,7 @@ Global values:
 Example Output:
 
 Pinochle:
-Without Melds:
+Without Melds Present:
 Player: A
 JS AD KC 
 KS JC KD 
@@ -122,7 +122,7 @@ AS 9S KS
 
 Would you like to end the game? (yes/no): 
 
-With Melds:
+With Melds Present:
 Player: A
 QS JD KD 
 9D 10H QS 
