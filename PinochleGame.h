@@ -64,5 +64,5 @@ class PinochleGame : public Game
         void printPlayers();
         void collectHands();
     private:
-        PinochleMelds suit_independent_evaluation(const CardSet<Suits, PinochleRanks> & cs, vector<PinochleMelds> pms);
+        void suit_independent_evaluation(const CardSet<Suits, PinochleRanks> & cs, vector<PinochleMelds> &pms);
 };

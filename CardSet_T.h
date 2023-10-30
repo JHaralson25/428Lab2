@@ -29,10 +29,7 @@ class CardSet
         CardSet<Suit, Rank> &operator>>(CardSet<Suit, Rank> &cs);
         bool is_empty();
         int get_size();
-        static std::vector<Card <Suit, Rank> > * CardSet::*getVector()
-        {
-            return &CardSet::cards;
-        }
+        static std::vector<Card <Suit, Rank> > CardSet::* getVector() {return &CardSet::cards;}
 
     protected:
         std::vector<Card <Suit, Rank> > cards;

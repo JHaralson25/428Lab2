@@ -11,6 +11,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <functional>
 
 using namespace std;
 
@@ -48,6 +49,16 @@ int PinochleGame::play()
         deal();
         // Print out the players and their hands
         printPlayers();
+        vector <PinochleMelds> pinochleCombos;
+        for (long unsigned int i = 0; i < hands.size(); ++i)
+        {
+            pinochleCombos.clear();
+            suit_independent_evaluation(hands[i], pinochleCombos);
+            for (long unsigned int j = 0; j < pinochleCombos.size(); ++j) {
+                cout << pinochleCombos[j] << " ";
+            }
+            cout << endl;
+        }
         // Collect the players' hands
         collectHands();
         // End the game if applicable
@@ -148,15 +159,11 @@ std::ostream &operator<<(ostream& os, const PinochleMelds& pm)
     return os;
 }
 
-
-PinochleMelds PinochleGame::suit_independent_evaluation(const CardSet<Suits, PinochleRanks> &cs, vector<PinochleMelds> pms)
+void PinochleGame::suit_independent_evaluation(const CardSet<Suits, PinochleRanks> &cs, vector<PinochleMelds> &pms)
 {
-
-        // invoke deep copy constructor
-        CardSet<Suits, PinochleRanks> temp = CardSet(cs);
-    auto vecPtr = CardSet<Suits, PinochleRanks>::getVector();
-    vector<Card<Suits, PinochleRanks>> &cardsRef = temp.*vecPtr;
-    sort(cardsRef.begin(), cardsRef.end(), lessRank);
+    CardSet<Suits, PinochleRanks> temp(cs);
+    std::vector<Card <Suits, PinochleRanks> > CardSet<Suits, PinochleRanks>::*cardsPtr = CardSet<Suits, PinochleRanks>::getVector();
+    std::vector<Card <Suits, PinochleRanks> > cardsRef = (temp.*cardsPtr);
 
     //counting aces
     int as  = 0;
@@ -183,7 +190,7 @@ PinochleMelds PinochleGame::suit_independent_evaluation(const CardSet<Suits, Pin
     int jc = 0;
 
     //iterating through hands
-    for (int i = 0; i < cardsRef.size(); ++i){
+    for (long unsigned int i = 0; i < cardsRef.size(); ++i){
         if (cardsRef[i].rank == PinochleRanks::ace){
             if (cardsRef[i].suit == Suits::spades){
                 ++as;
@@ -305,9 +312,4 @@ PinochleMelds PinochleGame::suit_independent_evaluation(const CardSet<Suits, Pin
     else if (jd >= 2 && qs >= 2){
         pms.push_back(PinochleMelds::pinochle);
     }
-
 }
-
-
-
-
