@@ -59,6 +59,13 @@ class HoldEmGame : public Game
         static string stringVals[];
         friend std::ostream& operator<<(ostream& os, const HoldEmHandRank& hehr);
 
+        struct HandInfo {
+            HandInfo(CardSet <Suits, HoldEmRanks> h, std::string n, HoldEmHandRank hr);
+
+            CardSet <Suits, HoldEmRanks> hand;
+            std::string name;
+            HoldEmHandRank handRank;
+        };
     protected:
         // Protected member variables
         HoldEmDeck hed;
@@ -75,3 +82,6 @@ class HoldEmGame : public Game
     private:
         HoldEmHandRank holdem_hand_evaluation(const CardSet<Suits, HoldEmRanks> &hand);
 };
+
+// HandInfo overloaded operators
+bool operator<(const HoldEmGame::HandInfo& hi1, const HoldEmGame::HandInfo& hi2);
