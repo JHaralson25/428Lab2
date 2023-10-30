@@ -142,5 +142,5 @@ string PinochleGame::pointStrings[] = {
 };
 
 PinochleGame operator<<(ostream & os, const PinochleMelds & pm){
-    cout << PinochleGame::pointStrings[static_cast<int>(pm)] << PinochleGame::pointValues[static_cast<int>(pm)] << endl;
+    cout << PinochleGame::pointStrings[static_cast<int>(pm)] << " " <<PinochleGame::pointValues[static_cast<int>(pm)] << endl;
 }
