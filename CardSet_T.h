@@ -18,7 +18,7 @@
 /*
     Declaration of CardSet class with a public print funtion,
     insertion operator, is_empty helper function, a get_size helper
-    function, a destructor, and a private vector member variable
+    function, a destructor, a public static function that return a scoped pointer to the cards member variable and a private vector member variable
     containing Card classes.
 */
 template <typename Suit, typename Rank>
