@@ -55,7 +55,7 @@ int PinochleGame::play()
             pinochleCombos.clear();
             suit_independent_evaluation(hands[i], pinochleCombos);
             for (long unsigned int j = 0; j < pinochleCombos.size(); ++j) {
-                cout << pinochleCombos[j] << " ";
+                cout << "Player " << i+1 << ": " << pinochleCombos[j] << " ";
             }
             cout << endl;
         }
