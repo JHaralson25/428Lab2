@@ -271,6 +271,85 @@ HoldEmHandRank HoldEmGame::holdem_hand_evaluation(const CardSet<Suits, HoldEmRan
     sort(cardsRef.begin(), cardsRef.end(), lessSuit<Suits, HoldEmRanks>);
 
     if (cardsRef.size() != 5) {
-        return HoldEmHandRank::undefined
+        return HoldEmHandRank::undefined;
     }
+    int numClubs = 0;
+    int numSpades = 0;
+    int numDiamonds = 0;
+    int numHearts = 0;
+    for (auto i : cardsRef) {
+        if (i.suit == Suits::clubs) {
+            ++numClubs;
+        }
+        if (i.suit == Suits::spades) {
+            ++numSpades;
+        }
+        if (i.suit == Suits::diamonds) {
+            ++numDiamonds;
+        }
+        if (i.suit == Suits::hearts) {
+            ++numHearts;
+        }
+    }
+    //Check for straightflush
+    if (numClubs == 5 || numSpades == 5 || numDiamonds == 5 || numHearts == 5) {
+        if (++(cardsRef[0].rank) == cardsRef[1].rank && ++(cardsRef[1].rank) == cardsRef[2].rank && ++(cardsRef[2].rank) == cardsRef[3].rank && ++(cardsRef[3].rank) == cardsRef[4].rank) {
+            return HoldEmHandRank::straightflush;
+        }
+        if (cardsRef[0].rank == HoldEmRanks::two && cardsRef[1].rank == HoldEmRanks::three && cardsRef[2].rank == HoldEmRanks::four && cardsRef[3].rank == HoldEmRanks::five && cardsRef[4].rank == HoldEmRanks::ace) {
+            return HoldEmHandRank::straightflush;
+        }
+    }
+
+    //check for four of a kind
+    if ((cardsRef[0].rank == cardsRef[1].rank && cardsRef[1].rank == cardsRef[2].rank && cardsRef[2].rank == cardsRef[3].rank) || (cardsRef[1].rank == cardsRef[2].rank && cardsRef[2].rank == cardsRef[3].rank && cardsRef[3].rank == cardsRef[4].rank)) {
+        return HoldEmHandRank::fourofakind;
+    }
+
+    //check for fullhouse
+    if ((cardsRef[0].rank == cardsRef[1].rank && cardsRef[1].rank == cardsRef[2].rank && cardsRef[3].rank == cardsRef[4].rank) || (cardsRef[2].rank == cardsRef[3].rank && cardsRef[3].rank == cardsRef[4].rank && cardsRef[0].rank == cardsRef[1].rank)) {
+        return HoldEmHandRank::fullhouse;
+    }
+
+    //Check for flush
+    if (numClubs == 5 || numSpades == 5 || numDiamonds == 5 || numHearts == 5) {
+        return HoldEmHandRank::flush;
+    }
+
+    //checks for straight
+    if (++(cardsRef[0].rank) == cardsRef[1].rank && ++(cardsRef[1].rank) == cardsRef[2].rank && ++(cardsRef[2].rank) == cardsRef[3].rank && ++(cardsRef[3].rank) == cardsRef[4].rank) {
+        return HoldEmHandRank::straight;
+    }
+    if (cardsRef[0].rank == HoldEmRanks::two && cardsRef[1].rank == HoldEmRanks::three && cardsRef[2].rank == HoldEmRanks::four && cardsRef[3].rank == HoldEmRanks::five && cardsRef[4].rank == HoldEmRanks::ace) {
+        return HoldEmHandRank::straight;
+    }
+
+    //checks for three of a kind
+    if ((cardsRef[0].rank == cardsRef[1].rank && cardsRef[1].rank == cardsRef[2].rank) && cardsRef[2].rank != cardsRef[3].rank && cardsRef[3].rank != cardsRef[4].rank) {
+        return HoldEmHandRank::threeofakind;
+    }
+    if ((cardsRef[1].rank == cardsRef[2].rank && cardsRef[2].rank == cardsRef[3].rank) && cardsRef[3].rank != cardsRef[4].rank && cardsRef[3].rank != cardsRef[1].rank && cardsRef[4].rank != cardsRef[0].rank) {
+        return HoldEmHandRank::threeofakind;
+    }
+    if ((cardsRef[2].rank == cardsRef[3].rank && cardsRef[3].rank == cardsRef[4].rank) && cardsRef[2].rank != cardsRef[1].rank && cardsRef[1].rank != cardsRef[0].rank) {
+        return HoldEmHandRank::threeofakind;
+    }
+
+    //Check for twopair
+    if ((cardsRef[0].rank == cardsRef[1].rank) && (cardsRef[2].rank == cardsRef[3].rank && (cardsRef[2].rank != cardsRef[1].rank)) && cardsRef[1].rank != cardsRef[4].rank && cardsRef[2].rank != cardsRef[4].rank) {
+        return HoldEmHandRank::twopair;
+    }
+    if ((cardsRef[0].rank == cardsRef[1].rank) && (cardsRef[3].rank == cardsRef[4].rank && (cardsRef[3].rank != cardsRef[1].rank)) && cardsRef[1].rank != cardsRef[2].rank && cardsRef[2].rank != cardsRef[4].rank) {
+        return HoldEmHandRank::twopair;
+    }
+
+    //check for pair
+    if ((cardsRef[0].rank == cardsRef[1].rank) || (cardsRef[1].rank == cardsRef[2].rank) || (cardsRef[2].rank == cardsRef[3].rank) || (cardsRef[3].rank == cardsRef[4].rank)) {
+        return HoldEmHandRank::pair;
+    }
+
+    //default
+    return HoldEmHandRank::xhigh;
+
+    
 }
