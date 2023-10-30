@@ -29,6 +29,19 @@ enum class HoldEmState
     undefined
 };
 
+enum class HoldEmHandRank {
+    xhigh,
+    pair,
+    twopair,
+    threeofakind,
+    straight,
+    flush,
+    fullhouse,
+    fourofakind,
+    straightflush,
+    undefinded
+};
+
 // HoldEmState overloaded operators
 ostream &operator<<(ostream &os, const HoldEmState &hes);
 HoldEmState &operator++(HoldEmState &hes);
@@ -43,6 +56,8 @@ class HoldEmGame : public Game
     public:
         HoldEmGame(int argc, const char *argv[]);
         virtual int play();
+        static string stringVals[];
+        friend std::ostream& operator<<(ostream& os, const HoldEmHandRank& hehr);
 
     protected:
         // Protected member variables

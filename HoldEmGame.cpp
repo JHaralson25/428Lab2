@@ -241,3 +241,22 @@ void HoldEmGame::collectBoard()
 {
     hed.collect(board);
 }
+
+string HoldEmGame::stringVals[] = {
+    "xhigh",
+    "pair",
+    "twopair",
+    "threeofakind",
+    "straight",
+    "flush",
+    "fullhouse",
+    "fourofakind",
+    "straightflush",
+    "undefinded"
+};
+
+std::ostream& operator<<(ostream& os, const HoldEmHandRank& hehr)
+{
+    os << HoldEmGame::stringVals[static_cast<int>(hehr)] << endl;
+    return os;
+}
