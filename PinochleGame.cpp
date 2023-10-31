@@ -167,7 +167,7 @@ string PinochleGame::pointStrings[] = {
     "eightykings",
     "hundredaces",
     "insuitrun",
-    "doublepinochke",
+    "doublepinochle",
     "fourhundredjacks",
     "sixhundredqueens",
     "eighthundredkings",
