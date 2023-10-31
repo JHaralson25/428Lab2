@@ -121,7 +121,7 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
         int pairPos1;
         for (int i = 0; i < HOLD_EM_PAIR_POS; ++i)
         {
-            if (cardsRef1[i].rank == cardsRef1[i + 1].rank)
+            if (cardsRef1[i].rank == cardsRef1[i + ADJACENT].rank)
             {
                 pairPos1 = i;
                 break;
@@ -132,7 +132,7 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
         int pairPos2;
         for (int i = 0; i < HOLD_EM_PAIR_POS; ++i)
         {
-            if (cardsRef2[i].rank == cardsRef2[i + 1].rank)
+            if (cardsRef2[i].rank == cardsRef2[i + ADJACENT].rank)
             {
                 pairPos2 = i;
                 break;
@@ -150,7 +150,7 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
         }
 
         // Otherwise check high card
-        for (int i = HOLD_EM_TOTAL_HAND_SIZE - 1; i > -1; --i)
+        for (int i = HOLD_EM_MAX_IDX; i > -1; --i)
         {
             if (cardsRef1[i].rank < cardsRef2[i].rank)
             {
@@ -174,7 +174,7 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
         int ndPairPos1 = -1;
         for (int i = 0; i < HOLD_EM_PAIR_POS; ++i)
         {
-            if (cardsRef1[i].rank == cardsRef1[i + 1].rank)
+            if (cardsRef1[i].rank == cardsRef1[i + ADJACENT].rank)
             {
                 if (stPairPos1 == -1)
                 {
@@ -193,7 +193,7 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
         int ndPairPos2 = -1;
         for (int i = 0; i < HOLD_EM_PAIR_POS; ++i)
         {
-            if (cardsRef2[i].rank == cardsRef2[i + 1].rank)
+            if (cardsRef2[i].rank == cardsRef2[i + ADJACENT].rank)
             {
                 if (stPairPos2 == -1)
                 {
@@ -227,7 +227,7 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
         }
 
         // Otherwise check high card
-        for (int i = HOLD_EM_TOTAL_HAND_SIZE - 1; i > -1; --i)
+        for (int i = HOLD_EM_MAX_IDX; i > -1; --i)
         {
             if (cardsRef1[i].rank < cardsRef2[i].rank)
             {
@@ -251,7 +251,7 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
         int threePos1;
         for (int i = 0; i < HOLD_EM_TRIP_POS; ++i)
         {
-            if (cardsRef1[i].rank == cardsRef1[i + 1].rank && cardsRef1[i + 1].rank == cardsRef1[i + 2].rank)
+            if (cardsRef1[i].rank == cardsRef1[i + ADJACENT].rank && cardsRef1[i + ADJACENT].rank == cardsRef1[i + SECOND_ADJACENT].rank)
             {
                 threePos1 = i;
                 break;
@@ -262,7 +262,7 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
         int threePos2;
         for (int i = 0; i < HOLD_EM_TRIP_POS; ++i)
         {
-            if (cardsRef2[i].rank == cardsRef2[i + 1].rank && cardsRef2[i + 1].rank == cardsRef2[i + 2].rank)
+            if (cardsRef2[i].rank == cardsRef2[i + ADJACENT].rank && cardsRef2[i + ADJACENT].rank == cardsRef2[i + SECOND_ADJACENT].rank)
             {
                 threePos2 = i;
                 break;
@@ -280,7 +280,7 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
         }
 
         // Otherwise check high card (did not ask but did anyway see readme)
-        for (int i = HOLD_EM_TOTAL_HAND_SIZE - 1; i > -1; --i)
+        for (int i = HOLD_EM_MAX_IDX; i > -1; --i)
         {
             if (cardsRef1[i].rank < cardsRef2[i].rank)
             {
@@ -314,8 +314,8 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
     if ((hi1.handRank == HoldEmHandRank::flush && hi2.handRank == HoldEmHandRank::flush) || 
     (hi1.handRank == HoldEmHandRank::xhigh && hi2.handRank == HoldEmHandRank::xhigh))
     {
-        // Just checkl high card for both
-        for (int i = HOLD_EM_TOTAL_HAND_SIZE - 1; i > -1; --i)
+        // Just check high card for both
+        for (int i = HOLD_EM_MAX_IDX; i > -1; --i)
         {
             if (cardsRef1[i].rank < cardsRef2[i].rank)
             {
@@ -338,7 +338,8 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
         int fourPos1;
         for (int i = 0; i < HOLD_EM_QUAD_POS; ++i)
         {
-            if (cardsRef1[i].rank == cardsRef1[i + 1].rank && cardsRef1[i + 1].rank == cardsRef1[i + 2].rank && cardsRef1[i + 2].rank == cardsRef1[i + 3].rank)
+            if (cardsRef1[i].rank == cardsRef1[i + ADJACENT].rank && cardsRef1[i + ADJACENT].rank == cardsRef1[i + SECOND_ADJACENT].rank && 
+            cardsRef1[i + SECOND_ADJACENT].rank == cardsRef1[i + TERTIARY_ADJACENT].rank)
             {
                 fourPos1 = i;
                 break;
@@ -349,7 +350,8 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
         int fourPos2;
         for (int i = 0; i < HOLD_EM_QUAD_POS; ++i)
         {
-            if (cardsRef2[i].rank == cardsRef2[i + 1].rank && cardsRef2[i + 1].rank == cardsRef2[i + 2].rank && cardsRef2[i + 2].rank == cardsRef2[i + 3].rank)
+            if (cardsRef2[i].rank == cardsRef2[i + ADJACENT].rank && cardsRef2[i + ADJACENT].rank == cardsRef2[i + SECOND_ADJACENT].rank && 
+            cardsRef2[i + SECOND_ADJACENT].rank == cardsRef2[i + TERTIARY_ADJACENT].rank)
             {
                 fourPos2 = i;
                 break;
@@ -367,7 +369,7 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
         }
 
         // Check high card (this was not asked but we did it anyway see readme)
-        for (int i = HOLD_EM_TOTAL_HAND_SIZE - 1; i > -1; --i)
+        for (int i = HOLD_EM_MAX_IDX; i > -1; --i)
         {
             if (cardsRef1[i].rank < cardsRef2[i].rank)
             {
@@ -618,17 +620,24 @@ std::ostream &operator<<(ostream &os, const HoldEmHandRank &hehr)
 
 HoldEmHandRank HoldEmGame::holdem_hand_evaluation(const CardSet<Suits, HoldEmRanks> &hand)
 {
+    /*
+        Here we copy construct the provided CardSet so as to not interfere with original, and then obtain its private 
+        vector member variable employing a scoped pointer.
+    */
     CardSet<Suits, HoldEmRanks> temp(hand);
     vector<Card <Suits, HoldEmRanks> > CardSet<Suits, HoldEmRanks>::*cardsPtr = CardSet<Suits, HoldEmRanks>::getVector();
     vector<Card <Suits, HoldEmRanks> > cardsRef = (temp.*cardsPtr);
 
+    // Sort in assending order to make tracking easier
     sort(cardsRef.begin(), cardsRef.end(), lessRank<Suits, HoldEmRanks>);
 
+    // Check that we do in fact have 5 cards
     if (cardsRef.size() != HOLD_EM_TOTAL_HAND_SIZE)
     {
         return HoldEmHandRank::undefined;
     }
 
+    // Define number of suits and count
     int numClubs = 0;
     int numSpades = 0;
     int numDiamonds = 0;
@@ -656,14 +665,18 @@ HoldEmHandRank HoldEmGame::holdem_hand_evaluation(const CardSet<Suits, HoldEmRan
     // Check for four of a kind
     for (int i = 0; i < HOLD_EM_QUAD_POS; ++i)
     {
-        if (cardsRef[i].rank == cardsRef[i + 1].rank && cardsRef[i + 1].rank == cardsRef[i + 2].rank && cardsRef[i + 2].rank == cardsRef[i + 3].rank)
+        if (cardsRef[i].rank == cardsRef[i + ADJACENT].rank && cardsRef[i + ADJACENT].rank == cardsRef[i + SECOND_ADJACENT].rank && 
+        cardsRef[i + SECOND_ADJACENT].rank == cardsRef[i + TERTIARY_ADJACENT].rank)
         {
             return HoldEmHandRank::fourofakind;
         }
     }
 
     // Check for fullhouse
-    if (((cardsRef[0].rank == cardsRef[1].rank && cardsRef[1].rank == cardsRef[2].rank) && (cardsRef[3].rank == cardsRef[4].rank)) || ((cardsRef[2].rank == cardsRef[3].rank && cardsRef[3].rank == cardsRef[4].rank) && (cardsRef[0].rank == cardsRef[1].rank)))
+    if (((cardsRef[0].rank == cardsRef[ADJACENT].rank && cardsRef[ADJACENT].rank == cardsRef[SECOND_ADJACENT].rank) && 
+    (cardsRef[TERTIARY_ADJACENT].rank == cardsRef[HOLD_EM_MAX_IDX].rank)) || 
+    ((cardsRef[SECOND_ADJACENT].rank == cardsRef[TERTIARY_ADJACENT].rank && 
+    cardsRef[TERTIARY_ADJACENT].rank == cardsRef[HOLD_EM_MAX_IDX].rank) && (cardsRef[0].rank == cardsRef[ADJACENT].rank)))
     {
         return HoldEmHandRank::fullhouse;
     }
@@ -671,7 +684,7 @@ HoldEmHandRank HoldEmGame::holdem_hand_evaluation(const CardSet<Suits, HoldEmRan
     // Check for three of a kind
     for (int i = 0; i < HOLD_EM_TRIP_POS; ++i)
     {
-        if (cardsRef[i].rank == cardsRef[i + 1].rank && cardsRef[i + 1].rank == cardsRef[i + 2].rank)
+        if (cardsRef[i].rank == cardsRef[i + ADJACENT].rank && cardsRef[i + ADJACENT].rank == cardsRef[i + SECOND_ADJACENT].rank)
         {
             return HoldEmHandRank::threeofakind;
         }
@@ -681,7 +694,7 @@ HoldEmHandRank HoldEmGame::holdem_hand_evaluation(const CardSet<Suits, HoldEmRan
     bool foundFirstPair = false;
     for (int i = 0; i < HOLD_EM_PAIR_POS; ++i)
     {
-        if (cardsRef[i].rank == cardsRef[i + 1].rank)
+        if (cardsRef[i].rank == cardsRef[i + ADJACENT].rank)
         {
             if (!foundFirstPair)
             {
@@ -697,16 +710,18 @@ HoldEmHandRank HoldEmGame::holdem_hand_evaluation(const CardSet<Suits, HoldEmRan
     // Check for pair
     for (int i = 0; i < HOLD_EM_PAIR_POS; ++i)
     {
-        if (cardsRef[i].rank == cardsRef[i + 1].rank)
+        if (cardsRef[i].rank == cardsRef[i + ADJACENT].rank)
         {
             return HoldEmHandRank::pair;
         }
     }
 
     // Check for straightflush/straight
-    if (cardsRef[0].rank == HoldEmRanks::two && cardsRef[1].rank == HoldEmRanks::three && cardsRef[2].rank == HoldEmRanks::four && cardsRef[3].rank == HoldEmRanks::five && cardsRef[4].rank == HoldEmRanks::ace)
+    if (cardsRef[0].rank == HoldEmRanks::two && cardsRef[ADJACENT].rank == HoldEmRanks::three && cardsRef[SECOND_ADJACENT].rank == HoldEmRanks::four && 
+    cardsRef[TERTIARY_ADJACENT].rank == HoldEmRanks::five && cardsRef[HOLD_EM_MAX_IDX].rank == HoldEmRanks::ace)
     {
-        if (numClubs == HOLD_EM_TOTAL_HAND_SIZE || numSpades == HOLD_EM_TOTAL_HAND_SIZE || numDiamonds == HOLD_EM_TOTAL_HAND_SIZE || numHearts == HOLD_EM_TOTAL_HAND_SIZE)
+        if (numClubs == HOLD_EM_TOTAL_HAND_SIZE || numSpades == HOLD_EM_TOTAL_HAND_SIZE || numDiamonds == HOLD_EM_TOTAL_HAND_SIZE || 
+        numHearts == HOLD_EM_TOTAL_HAND_SIZE)
         {
             return HoldEmHandRank::straightflush;
         }
@@ -715,9 +730,11 @@ HoldEmHandRank HoldEmGame::holdem_hand_evaluation(const CardSet<Suits, HoldEmRan
             return HoldEmHandRank::straight;
         }
     }
-    if ((++(cardsRef[0].rank) == cardsRef[1].rank) && (++(cardsRef[1].rank) == cardsRef[2].rank) && (++(cardsRef[2].rank) == cardsRef[3].rank) && (++(cardsRef[3].rank) == cardsRef[4].rank))
+    if ((++(cardsRef[0].rank) == cardsRef[ADJACENT].rank) && (++(cardsRef[ADJACENT].rank) == cardsRef[SECOND_ADJACENT].rank) && 
+    (++(cardsRef[SECOND_ADJACENT].rank) == cardsRef[TERTIARY_ADJACENT].rank) && (++(cardsRef[TERTIARY_ADJACENT].rank) == cardsRef[HOLD_EM_MAX_IDX].rank))
     {
-        if (numClubs == HOLD_EM_TOTAL_HAND_SIZE || numSpades == HOLD_EM_TOTAL_HAND_SIZE || numDiamonds == HOLD_EM_TOTAL_HAND_SIZE || numHearts == HOLD_EM_TOTAL_HAND_SIZE)
+        if (numClubs == HOLD_EM_TOTAL_HAND_SIZE || numSpades == HOLD_EM_TOTAL_HAND_SIZE || numDiamonds == HOLD_EM_TOTAL_HAND_SIZE || 
+        numHearts == HOLD_EM_TOTAL_HAND_SIZE)
         {
             return HoldEmHandRank::straightflush;
         }
@@ -728,7 +745,8 @@ HoldEmHandRank HoldEmGame::holdem_hand_evaluation(const CardSet<Suits, HoldEmRan
     }
 
     // Check for flush
-    if (numClubs == HOLD_EM_TOTAL_HAND_SIZE || numSpades == HOLD_EM_TOTAL_HAND_SIZE || numDiamonds == HOLD_EM_TOTAL_HAND_SIZE || numHearts == HOLD_EM_TOTAL_HAND_SIZE)
+    if (numClubs == HOLD_EM_TOTAL_HAND_SIZE || numSpades == HOLD_EM_TOTAL_HAND_SIZE || numDiamonds == HOLD_EM_TOTAL_HAND_SIZE ||
+     numHearts == HOLD_EM_TOTAL_HAND_SIZE)
     {
         return HoldEmHandRank::flush;
     }

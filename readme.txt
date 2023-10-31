@@ -138,23 +138,40 @@ Global values:
 
 6. HOLD_EM_TOTAL_HAND_SIZE (5): Hand size of best combination of player and board.
 
-7. PINOCHLE_PLAYER_CT (4): Required number of players for Pinochle.
+7. HOLD_EM_PAIR_POS (4): Total number of possible positions for pairs given sorted Hold 'Em 
+    array of cards.
 
-8. PINOCHLE_MAJOR_CT (2): Count of cards required for the "Major" Pinochle Melds
+8. HOLD_EM_TRIP_POS (3): Total number of possible positions for tripples given sorted Hold 'Em 
+    array of cards.
 
-9. PINOCHLE_MINOR_CT (1): Count of cards required for the "Minor" Pinochle Melds
+9. HOLD_EM_QUAD_POS (2): Total number of possible positions for four in a row given sorted Hold 'Em 
+    array of cards.
 
-10. MIN_HOLD_EM_PLAYER_CT (2): The minimum number of players that can play Hold 'Em.
+10. ADJACENT (1): Adjacency offset in array.
 
-11. MAX_HOLD_EM_PLAYER_CT (9): The maximum number of players that can play Hold 'Em.
+11. SECOND_ADJACENT (2): Adjacency offset for second element in array.
 
-12. HOLD_EM_FLOP_SIZE (3): Size of the flop for Hold 'Em. Will most likely never be
+12. TERTIARY_ADJACENT (3): Adjacency offset for third element in array.
+
+13. HOLD_EM_MAX_IDX (4): Maximum index an array of size HOLD_EM_TOTAL_HAND_SIZE can have.
+
+14. PINOCHLE_PLAYER_CT (4): Required number of players for Pinochle.
+
+15. PINOCHLE_MAJOR_CT (2): Count of cards required for the "Major" Pinochle Melds
+
+16. PINOCHLE_MINOR_CT (1): Count of cards required for the "Minor" Pinochle Melds
+
+17. MIN_HOLD_EM_PLAYER_CT (2): The minimum number of players that can play Hold 'Em.
+
+18. MAX_HOLD_EM_PLAYER_CT (9): The maximum number of players that can play Hold 'Em.
+
+19. HOLD_EM_FLOP_SIZE (3): Size of the flop for Hold 'Em. Will most likely never be
     changed.
 
-13. HOLD_EM_NAME_STR ("HoldEm"): Name that a player should pass to the program in order
+20. HOLD_EM_NAME_STR ("HoldEm"): Name that a player should pass to the program in order
     to play the game Hold 'Em.
 
-14. PINOCHLE_NAME_STR ("Pinochle") Name that a player should pass to the program in order
+21. PINOCHLE_NAME_STR ("Pinochle") Name that a player should pass to the program in order
     to play the game Pinochle.
 
 ------------------------------------------------------------------------------
