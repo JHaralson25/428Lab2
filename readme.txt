@@ -8,11 +8,12 @@ Jacob Haralson: haralson.j@wustl.edu, 491111
 
 ------------------------------------------------------------------------------
 
-The submitted program contains information about card, decks, and suits necessary to play
+The submitted program contains information about cards, decks, and suits necessary to play
 Texas Hold 'Em and Pinochle. The program also contains the necessary driver code in order
 to play both games including dealing with decks, hands, and checking for valid game constraints.
 The program also contains information to "play" each game printing players hands, the deck at 
-given stages, and allows the players to play again or exit.
+given stages, and the driver code to calculate the rankings and scores of different hands, 
+and allows the players to play again or exit.
 
 ------------------------------------------------------------------------------
 Going over the steps of the lab:
