@@ -49,7 +49,7 @@ int PinochleGame::play()
         deal();
         // Print out the players and their hands
         printPlayers();
-        //print out the melds
+        // Print out the melds
         printMelds();
         // Collect the players' hands
         collectHands();
@@ -102,17 +102,17 @@ void PinochleGame::printPlayers()
 */
 void PinochleGame::printMelds()
 {
-vector<PinochleMelds> pinochleCombos;
-for (long unsigned int i = 0; i < hands.size(); ++i)
-{
-    pinochleCombos.clear();
-    suit_independent_evaluation(hands[i], pinochleCombos);
-    for (long unsigned int j = 0; j < pinochleCombos.size(); ++j)
+    vector<PinochleMelds> pinochleCombos;
+    for (long unsigned int i = 0; i < hands.size(); ++i)
     {
-        cout << "Player " << i + 1 << ": " << pinochleCombos[j] << " ";
+        pinochleCombos.clear();
+        suit_independent_evaluation(hands[i], pinochleCombos);
+        cout << "Player " << i + 1 << ":" << endl;
+        for (long unsigned int j = 0; j < pinochleCombos.size(); ++j)
+        {
+            cout << "   " << pinochleCombos[j];
+        }
     }
-    cout << endl;
-}
 }
 
 /*

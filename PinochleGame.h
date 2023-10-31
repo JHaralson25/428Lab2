@@ -39,7 +39,7 @@ enum class PinochleMelds {
     insuitdoublerun
 };
 
-std::ostream &operator<<(ostream&, const PinochleMelds&);
+std::ostream &operator<<(ostream& os, const PinochleMelds& pm);
 
 /*
     PinochleGame class declaration, alongside its 2 member variables,

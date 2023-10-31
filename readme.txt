@@ -178,3 +178,84 @@ Usage: ./lab2 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player C
 
 [k.monish@linuxlab004 428Lab2]$ ./lab2 HoldEm A B C D E F G H I J K L M N O P
 Usage: ./lab2 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)
+
+
+
+
+
+
+
+
+
+
+
+
+Would you like to end the game? (yes/no): 
+n
+Player: ethan
+4S 2D 
+
+Player: libby
+7C 5D 
+
+Player: mo
+AS 6C 
+
+Player: jacob
+QC 6S 
+
+Player: lowell
+JH 9H 
+
+Player: a
+9C 3H 
+
+Player: b
+10C KD 
+
+Player: c
+JD 4D 
+
+BOARD (flop): 3C 6H 5C 
+Name: c
+Hand: JD 4D 5C 6H 3C 
+Rank: xhigh
+
+
+Name: lowell
+Hand: JH 9H 5C 6H 3C 
+Rank: xhigh
+
+
+Name: b
+Hand: 10C KD 5C 6H 3C 
+Rank: xhigh
+
+
+Name: a
+Hand: 9C 3H 5C 6H 3C 
+Rank: pair
+
+
+Name: libby
+Hand: 7C 5D 5C 6H 3C 
+Rank: pair
+
+
+Name: jacob
+Hand: QC 6S 5C 6H 3C 
+Rank: pair
+
+
+Name: mo
+Hand: AS 6C 5C 6H 3C 
+Rank: pair
+
+
+Name: ethan
+Hand: 4S 2D 5C 6H 3C 
+Rank: straight
+
+
+BOARD (turn): 3C 6H 5C 10H 
+BOARD (river): 3C 6H 5C 10H 2H 

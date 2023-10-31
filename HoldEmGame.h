@@ -77,11 +77,15 @@ class HoldEmGame : public Game
         virtual void deal();
         void printPlayers();
         void printBoard();
+        void checkWinner();
         void collectHands();
         void collectBoard();
     private:
         HoldEmHandRank holdem_hand_evaluation(const CardSet<Suits, HoldEmRanks> &hand);
 };
+
+// HoldEmHandRank overloaded operators
+std::ostream& operator<<(ostream& os, const HoldEmHandRank& hehr);
 
 // HandInfo overloaded operators
 bool operator<(const HoldEmGame::HandInfo& hi1, const HoldEmGame::HandInfo& hi2);

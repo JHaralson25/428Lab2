@@ -86,8 +86,6 @@ bool operator<(const HoldEmGame::HandInfo& hi1, const HoldEmGame::HandInfo& hi2)
 
     sort(cardsRef1.begin(), cardsRef1.end(), lessRank<Suits, HoldEmRanks>);
     sort(cardsRef2.begin(), cardsRef2.end(), lessRank<Suits, HoldEmRanks>);
-    sort(cardsRef1.begin(), cardsRef1.end(), lessSuit<Suits, HoldEmRanks>);
-    sort(cardsRef2.begin(), cardsRef2.end(), lessSuit<Suits, HoldEmRanks>);
 
     if (cardsRef1.size() != HOLD_EM_TOTAL_HAND_SIZE) {
         return false;
@@ -216,6 +214,15 @@ bool operator<(const HoldEmGame::HandInfo& hi1, const HoldEmGame::HandInfo& hi2)
             return false;
         }
 
+        for (int i = HOLD_EM_TOTAL_HAND_SIZE - 1; i > -1; --i) {
+            if (cardsRef1[i].rank < cardsRef2[i].rank) {
+                return true;
+            }
+            else if (cardsRef1[i].rank > cardsRef2[i].rank) {
+                return false;
+            }
+        }
+
         return false;
     }
 
@@ -260,6 +267,18 @@ bool operator<(const HoldEmGame::HandInfo& hi1, const HoldEmGame::HandInfo& hi2)
         if (cardsRef1[fourPos1].rank < cardsRef2[fourPos2].rank) {
             return true;
         }
+        else if (cardsRef1[fourPos1].rank > cardsRef2[fourPos2].rank) {
+            return false;
+        }
+
+        for (int i = HOLD_EM_TOTAL_HAND_SIZE - 1; i > -1; --i) {
+            if (cardsRef1[i].rank < cardsRef2[i].rank) {
+                return true;
+            }
+            else if (cardsRef1[i].rank > cardsRef2[i].rank) {
+                return false;
+            }
+        }
 
         return false;
     }
@@ -300,6 +319,8 @@ int HoldEmGame::play()
         printPlayers();
         // Deal flop
         deal();
+        // Check winner after flop
+        checkWinner();
         // Deal turn
         deal();
         // Deal river
@@ -413,6 +434,29 @@ void HoldEmGame::printBoard()
     board.print(cout, board.get_size());
 }
 
+void HoldEmGame::checkWinner() {
+    vector <HandInfo> handsInfo;
+    for (long unsigned int i = 0; i < hands.size(); ++i)
+    {
+        handsInfo.push_back(HandInfo(hands[i], names[i], HoldEmHandRank::undefined));
+    }
+    for (long unsigned int i = 0; i < handsInfo.size(); ++i) {
+        CardSet<Suits, HoldEmRanks> temp(board);
+        while (!temp.is_empty()) {
+            temp >> handsInfo[i].hand;
+        }
+        handsInfo[i].handRank = holdem_hand_evaluation(handsInfo[i].hand);
+    }
+    sort(handsInfo.begin(), handsInfo.end());
+    cout << endl;
+    for (long unsigned int i = 0; i < handsInfo.size(); ++i) {
+        cout << "Name: " << handsInfo[i].name << endl;
+        cout << "Hand: ";
+        handsInfo[i].hand.print(cout, HOLD_EM_TOTAL_HAND_SIZE);
+        cout << "Rank: " << handsInfo[i].handRank << endl;
+    }
+}
+
 /*
     collectHands method for HoldEmGame that collects
     the cards from all the players and puts them
@@ -461,7 +505,6 @@ HoldEmHandRank HoldEmGame::holdem_hand_evaluation(const CardSet<Suits, HoldEmRan
     vector<Card <Suits, HoldEmRanks> > cardsRef = (temp.*cardsPtr);
 
     sort(cardsRef.begin(), cardsRef.end(), lessRank<Suits, HoldEmRanks>);
-    sort(cardsRef.begin(), cardsRef.end(), lessSuit<Suits, HoldEmRanks>);
 
     if (cardsRef.size() != 5) {
         return HoldEmHandRank::undefined;
