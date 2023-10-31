@@ -17,7 +17,8 @@ given stages, and allows the players to play again or exit.
 ------------------------------------------------------------------------------
 Going over the steps of the lab:
 
-As this lab builds upon the previous lab and the bulk of the classes remain the same, we will be going over the additions we have made to the classes rather than restating everything.
+As this lab builds upon the previous lab and the bulk of the classes and files remain the same, we will be going over the additions we have made to the 
+classes rather than restating everything.
 
 Step 7: Card_T.h/cpp: We have added a lessSuit and lessRank functions. The functions both take in references to cards paramterized with a suit and rank, 
 and return true if the suit or rank (respectively) of the first card is less than the second. Otherwise, the functions will return false.
@@ -177,7 +178,9 @@ Global values:
 ------------------------------------------------------------------------------
 
 Errors:
-We were fortunate enough not to run into any major errors.
+We were fortunate enough not to run into any major errors. The only thing we really had problems with
+was the pointer dereferencing for the protected vector point. We had to use a scoped pointer. This worked
+perfectly. There were no other major error besides basic syntax error.
 
 ------------------------------------------------------------------------------
 
@@ -230,71 +233,41 @@ Tests:
     Example Pinochle Outputs:
 
     Example Output 1:
-    [e.d.woolbert@linuxlab002 428Lab2]$ ./lab2 Pinochle ethan mo libby lowell
-    Player: ethan
-    KH AD AS 
-    9D AS KS 
-    KS 9C KC 
-    KD JC 9H 
+    [e.d.woolbert@linuxlab002 428Lab2]$ ./lab2 Pinochle a b c d
 
-    Player: mo
-    JH AC JS 
-    JS JD 9C 
-    9D JC 10H 
-    10D 10S QC 
-
-    Player: libby
-    KH QH QD 
-    KD JD AH 
-    AC KC 9S 
-    9H QS 10C 
-
-    Player: lowell
-    10H 10S AH 
+    PLAYERS
+    Player: a
+    JS JC KS 
     QD 10C AD 
-    QS 10D JH 
-    QC QH 9S 
+    AS JH QS 
+    10S 10H JD 
 
-    Player ethan:
-        eightykings 80
-    Player mo:
+    Player: b
+    9C KD QH 
+    QD AH QC 
+    KC 9D QC 
+    QS 9H KC 
+
+    Player: c
+    10S JS AC 
+    10D 9S 9H 
+    AH KH 9D 
+    JC QH AS 
+
+    Player: d
+    10C AC JH 
+    AD 9C KS 
+    10D 10H KD 
+    9S KH JD 
+
+    MELDS
+    Player a:
         fortyjacks 40
-    Player libby:
         pinochle 40
-    Player lowell:
+    Player b:
         sixtyqueens 60
-
-    Would you like to end the game? (yes/no): 
-    no
-    Player: ethan
-    10D AC JD 
-    10H JD 10C 
-    KH QS AH 
-    KS KC QD 
-
-    Player: mo
-    KS QH QH 
-    AH QC JC 
-    10D KC JC 
-    AS 9H KD 
-
-    Player: libby
-    9S JS 9S 
-    KD 10S 10S 
-    JH AD QD 
-    AC 9H 10H 
-
-    Player: lowell
-    9C 9C 10C 
-    JH 9D AD 
-    9D JS QS 
-    AS KH QC 
-
-    Player ethan:
-        pinochle 40
-    Player mo:
-    Player libby:
-    Player lowell:
+    Player c:
+    Player d:
 
     Would you like to end the game? (yes/no): 
     yes
@@ -302,71 +275,74 @@ Tests:
     This output ran correctly given the inputs from the player.
 
     Example Output 2:
-    [e.d.woolbert@linuxlab002 428Lab2]$ ./lab2 Pinochle ethan mo libby lowell
-    Player: ethan
-    JD KD QH 
-    AC QD 9C 
-    9S AD 10C 
-    AH 10S JC 
+    [e.d.woolbert@linuxlab002 428Lab2]$ ./lab2 Pinochle a b c d
 
-    Player: mo
-    AD AC AS 
-    9H KC 10C 
-    AH 9S QC 
-    9D QC 9C 
+    PLAYERS
+    Player: a
+    KD QC QD 
+    10D AH JH 
+    9C JD KH 
+    QS AS AC 
 
-    Player: libby
-    AS JH 10S 
-    JS KD 9D 
-    JC 10H QS 
-    QH JD JH 
+    Player: b
+    9S QC 9C 
+    10H AC KS 
+    KC 10C KC 
+    10H 10C 9S 
 
-    Player: lowell
-    KH JS 10D 
-    KS 10D 10H 
-    KH KC KS 
-    9H QS QD 
+    Player: c
+    AS 9H KD 
+    QS QD 9D 
+    10D QH JC 
+    AH JS 9D 
 
-    Player ethan:
-    Player mo:
-        hundredaces 100
-    Player libby:
-        fortyjacks 40
+    Player: d
+    10S AD KH 
+    9H AD JC 
+    JS JH 10S 
+    JD QH KS 
+
+    MELDS
+    Player a:
         pinochle 40
-    Player lowell:
+    Player b:
+    Player c:
+    Player d:
+        fortyjacks 40
 
     Would you like to end the game? (yes/no): 
     no
-    Player: ethan
-    9H JH QH 
-    QC AH JD 
-    KH 9C AS 
-    10D JH QS 
 
-    Player: mo
-    KH 10S 10H 
-    10D QD KC 
-    JS KD KS 
-    9H KC AD 
+    PLAYERS
+    Player: a
+    JS QS AC 
+    9H AD KH 
+    JH QD 10S 
+    10C KS AD 
 
-    Player: libby
-    JC KD 10C 
-    QH 10S 9C 
-    AS 9D QS 
-    AC JC AD 
+    Player: b
+    AS 10H KS 
+    10H 9S QS 
+    AS 10D QH 
+    9D 9H JC 
 
-    Player: lowell
-    QD AH KS 
-    JD 9D JS 
-    9S AC 10C 
-    9S QC 10H 
+    Player: c
+    10C KD KH 
+    QD KD KC 
+    JC 10S AH 
+    9C QC QC 
 
-    Player ethan:
-        pinochle 40
-    Player mo:
-        eightykings 80
-    Player libby:
-    Player lowell:
+    Player: d
+    9S JD JH 
+    9D KC JD 
+    10D AC JS 
+    QH 9C AH 
+
+    MELDS
+    Player a:
+    Player b:
+    Player c:
+    Player d:
 
     Would you like to end the game? (yes/no): 
     yes
@@ -379,143 +355,210 @@ Tests:
 
     Example Output 1:
     [e.d.woolbert@linuxlab002 428Lab2]$ ./lab2 HoldEm a b c d e f g h
+
+    PLAYERS
     Player: a
-    5D 6C 
+    10H 5C 
 
     Player: b
-    4D 3D 
+    4H AC 
 
     Player: c
-    QH KD 
+    9H 4D 
 
     Player: d
-    10H AH 
+    6S QH 
 
     Player: e
-    2H QD 
+    QD 3D 
 
     Player: f
-    4C 9H 
+    6H 7S 
 
     Player: g
-    7H 2D 
+    8S KS 
 
     Player: h
-    7D 5H 
+    4S AS 
 
-    BOARD (flop): 9S 9C 3S 
+    BOARD (flop): 10D 9D 6D 
 
-    Name: a
-    Hand: 5D 6C 3S 9C 9S 
-    Rank: pair
-
+    RANKINGS
     Name: g
-    Hand: 7H 2D 3S 9C 9S 
-    Rank: pair
+    Hand: 8S KS 6D 9D 10D 
+    Rank: xhigh
+
+    Name: b
+    Hand: 4H AC 6D 9D 10D 
+    Rank: xhigh
 
     Name: h
-    Hand: 7D 5H 3S 9C 9S 
-    Rank: pair
+    Hand: 4S AS 6D 9D 10D 
+    Rank: xhigh
 
-    Name: e
-    Hand: 2H QD 3S 9C 9S 
-    Rank: pair
-
-    Name: c
-    Hand: QH KD 3S 9C 9S 
+    Name: f
+    Hand: 6H 7S 6D 9D 10D 
     Rank: pair
 
     Name: d
-    Hand: 10H AH 3S 9C 9S 
+    Hand: 6S QH 6D 9D 10D 
+    Rank: pair
+
+    Name: c
+    Hand: 9H 4D 6D 9D 10D 
+    Rank: pair
+
+    Name: a
+    Hand: 10H 5C 6D 9D 10D 
+    Rank: pair
+
+    Name: e
+    Hand: QD 3D 6D 9D 10D 
+    Rank: flush
+
+    BOARD (turn): 10D 9D 6D 3S 
+    BOARD (river): 10D 9D 6D 3S AH 
+    Would you like to end the game? (yes/no): 
+    no
+
+    PLAYERS
+    Player: a
+    3H 8D 
+
+    Player: b
+    5C QS 
+
+    Player: c
+    AD 8S 
+
+    Player: d
+    7S 2H 
+
+    Player: e
+    9H JD 
+
+    Player: f
+    10C JH 
+
+    Player: g
+    10S 3S 
+
+    Player: h
+    2S 2D 
+
+    BOARD (flop): 5H 6D AS 
+
+    RANKINGS
+    Name: d
+    Hand: 7S 2H AS 6D 5H 
+    Rank: xhigh
+
+    Name: a
+    Hand: 3H 8D AS 6D 5H 
+    Rank: xhigh
+
+    Name: g
+    Hand: 10S 3S AS 6D 5H 
+    Rank: xhigh
+
+    Name: e
+    Hand: 9H JD AS 6D 5H 
+    Rank: xhigh
+
+    Name: f
+    Hand: 10C JH AS 6D 5H 
+    Rank: xhigh
+
+    Name: h
+    Hand: 2S 2D AS 6D 5H 
     Rank: pair
 
     Name: b
-    Hand: 4D 3D 3S 9C 9S 
-    Rank: twopair
+    Hand: 5C QS AS 6D 5H 
+    Rank: pair
 
-    Name: f
-    Hand: 4C 9H 3S 9C 9S 
-    Rank: threeofakind
+    Name: c
+    Hand: AD 8S AS 6D 5H 
+    Rank: pair
 
-    BOARD (turn): 9S 9C 3S 8C 
-    BOARD (river): 9S 9C 3S 8C KS 
+    BOARD (turn): 5H 6D AS 7C 
+    BOARD (river): 5H 6D AS 7C KD 
     Would you like to end the game? (yes/no): 
     yes
 
     The program ran correctly given the input from the user.
 
     Example Output 2:
-    [e.d.woolbert@linuxlab002 428Lab2]$ ./lab2 HoldEm a b c d
+    [e.d.woolbert@linuxlab002 428Lab2]$ ./lab2 HoldEm a b c d e f g h
+
+    PLAYERS
     Player: a
-    7D KS 
+    2D KC 
 
     Player: b
-    7H 8S 
+    3D 3S 
 
     Player: c
-    AH 4D 
+    5D 4C 
 
     Player: d
-    KD 9C 
+    6D 7H 
 
-    BOARD (flop): 6H 9H 9D 
+    Player: e
+    KD JS 
 
-    Name: b
-    Hand: 7H 8S 9D 9H 6H 
+    Player: f
+    9H AS 
+
+    Player: g
+    JD 8S 
+
+    Player: h
+    2C JH 
+
+    BOARD (flop): 3C 2S AD 
+
+    RANKINGS
+    Name: d
+    Hand: 6D 7H AD 2S 3C 
+    Rank: xhigh
+
+    Name: g
+    Hand: JD 8S AD 2S 3C 
+    Rank: xhigh
+
+    Name: e
+    Hand: KD JS AD 2S 3C 
+    Rank: xhigh
+
+    Name: h
+    Hand: 2C JH AD 2S 3C 
     Rank: pair
 
     Name: a
-    Hand: 7D KS 9D 9H 6H 
+    Hand: 2D KC AD 2S 3C 
     Rank: pair
 
-    Name: c
-    Hand: AH 4D 9D 9H 6H 
+    Name: f
+    Hand: 9H AS AD 2S 3C 
     Rank: pair
 
-    Name: d
-    Hand: KD 9C 9D 9H 6H 
+    Name: b
+    Hand: 3D 3S AD 2S 3C 
     Rank: threeofakind
 
-    BOARD (turn): 6H 9H 9D 4S 
-    BOARD (river): 6H 9H 9D 4S JC 
-    Would you like to end the game? (yes/no): 
-    no
-    Player: a
-    QH KH 
-
-    Player: b
-    KD 7D 
-
-    Player: c
-    8H JC 
-
-    Player: d
-    9D 10D 
-
-    BOARD (flop): 5H 3D JD 
-
-    Name: d
-    Hand: 9D 10D JD 3D 5H 
-    Rank: xhigh
-
-    Name: b
-    Hand: KD 7D JD 3D 5H 
-    Rank: xhigh
-
-    Name: a
-    Hand: QH KH JD 3D 5H 
-    Rank: xhigh
-
     Name: c
-    Hand: 8H JC JD 3D 5H 
-    Rank: pair
+    Hand: 5D 4C AD 2S 3C 
+    Rank: straight
 
-    BOARD (turn): 5H 3D JD AD 
-    BOARD (river): 5H 3D JD AD 10C 
+    BOARD (turn): 3C 2S AD 5S 
+    BOARD (river): 3C 2S AD 5S 5C 
     Would you like to end the game? (yes/no): 
     yes
 
     The program ran correctly given the input from the user.
+
+
 
     Testing inpropper input (All inpropper inputs correctly failed to run and output the correct usage message):
         [e.d.woolbert@linuxlab002 428-lab2]$ ./lab2 Pinochle
@@ -544,3 +587,7 @@ Tests:
 
         [k.monish@linuxlab004 428Lab2]$ ./lab2 HoldEm A B C D E F G H I J K L M N O P
         Usage: ./lab2 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)
+
+    
+
+    Result of echo on program

@@ -519,6 +519,8 @@ void HoldEmGame::deal()
 */
 void HoldEmGame::printPlayers()
 {
+    cout << endl;
+    cout << "PLAYERS" << endl;
     for (long unsigned int i = 0; i < hands.size(); ++i)
     {
         cout << "Player: " << names[i] << endl;
@@ -568,6 +570,7 @@ void HoldEmGame::checkWinner()
 
     // Print out sorted HandInfo structs
     cout << endl;
+    cout << "RANKINGS" << endl;
     for (long unsigned int i = 0; i < handsInfo.size(); ++i)
     {
         cout << "Name: " << handsInfo[i].name << endl;

@@ -89,6 +89,8 @@ void PinochleGame::deal()
 */
 void PinochleGame::printPlayers()
 {
+    cout << endl;
+    cout << "PLAYERS" << endl;
     for (long unsigned int i = 0; i < hands.size(); ++i)
     {
         cout << "Player: " << names[i] << endl;
@@ -103,6 +105,7 @@ void PinochleGame::printPlayers()
 */
 void PinochleGame::printMelds()
 {
+    cout << "MELDS" << endl;
     vector<PinochleMelds> pinochleCombos;
     for (long unsigned int i = 0; i < hands.size(); ++i)
     {
