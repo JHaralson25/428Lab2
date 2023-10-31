@@ -172,7 +172,8 @@ string PinochleGame::pointStrings[] = {
     "sixhundredqueens",
     "eighthundredkings",
     "thousandaces",
-    "insuitdoublerun"};
+    "insuitdoublerun"
+};
 
 /*
     ostream insertion operator that takes a reference to an ostream and PinochleMeld
