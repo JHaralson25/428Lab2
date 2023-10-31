@@ -46,6 +46,6 @@ PinochleRanks &operator++(PinochleRanks &pr);
 */
 class PinochleDeck : public Deck<Suits, PinochleRanks>
 {
-    public:
-        PinochleDeck();
+public:
+    PinochleDeck();
 };

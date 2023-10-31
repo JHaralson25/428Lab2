@@ -21,11 +21,11 @@
 */
 class Game
 {
-    public:
-        Game(int argc, const char *argv[]);
-        virtual int play() = 0;
+public:
+    Game(int argc, const char *argv[]);
+    virtual int play() = 0;
 
-    protected:
-        std::vector<std::string> names;
-        bool terminateGame();
+protected:
+    std::vector<std::string> names;
+    bool terminateGame();
 };

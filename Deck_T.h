@@ -22,9 +22,9 @@
 template <typename Suit, typename Rank>
 class Deck : public CardSet<Suit, Rank>
 {
-    public:
-        void shuffle();
-        void collect(CardSet<Suit, Rank> &cs);
+public:
+    void shuffle();
+    void collect(CardSet<Suit, Rank> &cs);
 };
 
 // Inclusion gaurds for Deck_T.cpp

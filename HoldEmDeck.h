@@ -52,6 +52,6 @@ HoldEmRanks &operator++(HoldEmRanks &her);
 */
 class HoldEmDeck : public Deck<Suits, HoldEmRanks>
 {
-    public:
-        HoldEmDeck();
+public:
+    HoldEmDeck();
 };

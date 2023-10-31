@@ -133,56 +133,55 @@ void PinochleGame::collectHands()
     Array that stores each meld within the enum class respective point values
 */
 int PinochleGame::pointValues[] = {
-    10,     // dix
-    20,     // offsuitmarriage
-    40,     // fortyjacks
-    40,     // pinochle
-    40,     // insuitmarriage
-    60,     // sixtyqueens
-    80,     // eightykings
-    100,    // hundredaces
-    150,    // insuitrun
-    300,    // doublepinochle
-    400,    // fourhundredjacks
-    600,    // sixhundredqueens
-    800,    // eighthundredkings
-    1000,   // thousandaces
-    1500    // insuitdoublerun
+    10,   // dix
+    20,   // offsuitmarriage
+    40,   // fortyjacks
+    40,   // pinochle
+    40,   // insuitmarriage
+    60,   // sixtyqueens
+    80,   // eightykings
+    100,  // hundredaces
+    150,  // insuitrun
+    300,  // doublepinochle
+    400,  // fourhundredjacks
+    600,  // sixhundredqueens
+    800,  // eighthundredkings
+    1000, // thousandaces
+    1500  // insuitdoublerun
 };
 
 /*
     Array that stores each meld within the enum class respective output strings
 */
 string PinochleGame::pointStrings[] = {
-    "dix",  
-    "offsuitmarriage",   
-    "fortyjacks",  
-    "pinochle",   
-    "insuitmarriage",   
-    "sixtyqueens",   
-    "eightykings",   
-    "hundredaces", 
-    "insuitrun", 
-    "doublepinochke",  
-    "fourhundredjacks",  
-    "sixhundredqueens",  
-    "eighthundredkings",  
-    "thousandaces", 
-    "insuitdoublerun"  
-};
+    "dix",
+    "offsuitmarriage",
+    "fortyjacks",
+    "pinochle",
+    "insuitmarriage",
+    "sixtyqueens",
+    "eightykings",
+    "hundredaces",
+    "insuitrun",
+    "doublepinochke",
+    "fourhundredjacks",
+    "sixhundredqueens",
+    "eighthundredkings",
+    "thousandaces",
+    "insuitdoublerun"};
 
 /*
-    ostream insertion operator that takes a reference to an ostream and PinochleMeld 
+    ostream insertion operator that takes a reference to an ostream and PinochleMeld
     and displays apprpriate information using the above defined arrays
 */
-std::ostream &operator<<(ostream& os, const PinochleMelds& pm)
+std::ostream &operator<<(ostream &os, const PinochleMelds &pm)
 {
-    os << PinochleGame::pointStrings[static_cast<int>(pm)] << " " <<PinochleGame::pointValues[static_cast<int>(pm)] << endl;
+    os << PinochleGame::pointStrings[static_cast<int>(pm)] << " " << PinochleGame::pointValues[static_cast<int>(pm)] << endl;
     return os;
 }
 
 /*
-    suit_independent_evaluation function that that takes a const reference to a CardSet and a reference to a vector of 
+    suit_independent_evaluation function that that takes a const reference to a CardSet and a reference to a vector of
     PinochleMelds, iterates through the vector of a copy of the CardSet, and pushes all the melds onto the vector
 */
 void PinochleGame::suit_independent_evaluation(const CardSet<Suits, PinochleRanks> &cs, vector<PinochleMelds> &pms)
@@ -193,9 +192,9 @@ void PinochleGame::suit_independent_evaluation(const CardSet<Suits, PinochleRank
     std::vector<Card <Suits, PinochleRanks> > cardsRef = (temp.*cardsPtr);
 
     // Counting aces
-    int as  = 0;
+    int as = 0;
     int ah = 0;
-    int ad  = 0;
+    int ad = 0;
     int ac = 0;
 
     // Counting kings
@@ -217,10 +216,13 @@ void PinochleGame::suit_independent_evaluation(const CardSet<Suits, PinochleRank
     int jc = 0;
 
     // Iterating through hands
-    for (long unsigned int i = 0; i < cardsRef.size(); ++i){
+    for (long unsigned int i = 0; i < cardsRef.size(); ++i)
+    {
         // We check by rank and then by suit
-        if (cardsRef[i].rank == PinochleRanks::ace){
-            if (cardsRef[i].suit == Suits::spades){
+        if (cardsRef[i].rank == PinochleRanks::ace)
+        {
+            if (cardsRef[i].suit == Suits::spades)
+            {
                 ++as;
             }
             else if (cardsRef[i].suit == Suits::hearts)

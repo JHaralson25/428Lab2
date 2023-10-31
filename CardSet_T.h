@@ -24,15 +24,15 @@
 template <typename Suit, typename Rank>
 class CardSet
 {
-    public:
-        void print(std::ostream &os, size_t num_per_line);
-        CardSet<Suit, Rank> &operator>>(CardSet<Suit, Rank> &cs);
-        bool is_empty();
-        int get_size();
-        static std::vector<Card <Suit, Rank> > CardSet::* getVector() {return &CardSet::cards;}
+public:
+    void print(std::ostream &os, size_t num_per_line);
+    CardSet<Suit, Rank> &operator>>(CardSet<Suit, Rank> &cs);
+    bool is_empty();
+    int get_size();
+    static std::vector<Card <Suit, Rank> > CardSet::*getVector() { return &CardSet::cards; }
 
-    protected:
-        std::vector<Card <Suit, Rank> > cards;
+protected:
+    std::vector<Card <Suit, Rank> > cards;
 };
 
 // Inclusion gaurds for CardSet_T.cpp

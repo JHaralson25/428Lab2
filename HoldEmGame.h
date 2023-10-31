@@ -29,7 +29,8 @@ enum class HoldEmState
     undefined
 };
 
-enum class HoldEmHandRank {
+enum class HoldEmHandRank
+{
     xhigh,
     pair,
     twopair,
@@ -53,39 +54,42 @@ HoldEmState &operator++(HoldEmState &hes);
 class HoldEmGame : public Game
 {
     // Public constructor and play method
-    public:
-        HoldEmGame(int argc, const char *argv[]);
-        virtual int play();
-        static string stringVals[];
-        friend std::ostream& operator<<(ostream& os, const HoldEmHandRank& hehr);
+public:
+    HoldEmGame(int argc, const char *argv[]);
+    virtual int play();
+    static string stringVals[];
+    friend std::ostream &operator<<(ostream &os, const HoldEmHandRank &hehr);
 
-        struct HandInfo {
-            HandInfo(CardSet <Suits, HoldEmRanks> h, std::string n, HoldEmHandRank hr);
+    struct HandInfo
+    {
+        HandInfo(CardSet<Suits, HoldEmRanks> h, std::string n, HoldEmHandRank hr);
 
-            CardSet <Suits, HoldEmRanks> hand;
-            std::string name;
-            HoldEmHandRank handRank;
-        };
-    protected:
-        // Protected member variables
-        HoldEmDeck hed;
-        HoldEmState hes;
-        std::vector<CardSet <Suits, HoldEmRanks> > hands;
-        CardSet<Suits, HoldEmRanks> board;
+        CardSet<Suits, HoldEmRanks> hand;
+        std::string name;
+        HoldEmHandRank handRank;
+    };
 
-        // Protected member functions
-        virtual void deal();
-        void printPlayers();
-        void printBoard();
-        void checkWinner();
-        void collectHands();
-        void collectBoard();
-    private:
-        HoldEmHandRank holdem_hand_evaluation(const CardSet<Suits, HoldEmRanks> &hand);
+protected:
+    // Protected member variables
+    HoldEmDeck hed;
+    HoldEmState hes;
+    std::vector<CardSet <Suits, HoldEmRanks> > hands;
+    CardSet<Suits, HoldEmRanks> board;
+
+    // Protected member functions
+    virtual void deal();
+    void printPlayers();
+    void printBoard();
+    void checkWinner();
+    void collectHands();
+    void collectBoard();
+
+private:
+    HoldEmHandRank holdem_hand_evaluation(const CardSet<Suits, HoldEmRanks> &hand);
 };
 
 // HoldEmHandRank overloaded operators
-std::ostream& operator<<(ostream& os, const HoldEmHandRank& hehr);
+std::ostream &operator<<(ostream &os, const HoldEmHandRank &hehr);
 
 // HandInfo overloaded operators
-bool operator<(const HoldEmGame::HandInfo& hi1, const HoldEmGame::HandInfo& hi2);
+bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2);

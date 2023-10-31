@@ -6,7 +6,7 @@
     (lab1.cpp) contains a function definition that creates
     a pointer to a class of the corresponding game class. It
     also contains "main" the driver function for Pinochle
-    or HoldEm with validates command line input, creates the 
+    or HoldEm with validates command line input, creates the
     game and plays the game.
 */
 
@@ -59,7 +59,7 @@ shared_ptr<Game> create(int argc, const char *argv[])
 int main(int argc, const char *argv[])
 {
     // Usage and error messages for the program
-    string usage_msg = ("Usage: " + string(argv[CMD_PROG_IDX]) + " <gametype> (" + PINOCHLE_NAME_STR + " / " + 
+    string usage_msg = ("Usage: " + string(argv[CMD_PROG_IDX]) + " <gametype> (" + PINOCHLE_NAME_STR + " / " +
                         HOLD_EM_NAME_STR + ") <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)");
     string make_error_msg = "Failed to make game";
 
