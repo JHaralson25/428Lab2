@@ -4,7 +4,9 @@
     Monish Kumar: k.monish@wustl.edu
     Jacob Haralson: haralson.j@wustl.edu
     (Card_T.cpp) defines a constructor for the
-    Card template class and an ostream insertion operator.
+    Card template class and an ostream insertion operator and 
+    two functions that determine which of two input Cards is
+    less in terms of rank or suit.
 */
 
 // All includes

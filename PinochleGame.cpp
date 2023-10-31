@@ -3,7 +3,8 @@
     Ethan Woolbert: e.d.woolbert@wustl.edu
     Monish Kumar: k.monish@wustl.edu
     Jacob Haralson: haralson.j@wustl.edu
-    (PinochleGame.cpp) defines the methods of the PinochleGame class.
+    (PinochleGame.cpp) defines the methods of the PinochleGame class along
+    with static member variables and an ostream insertion operator.
 */
 
 // All includes
@@ -186,7 +187,10 @@ std::ostream &operator<<(ostream &os, const PinochleMelds &pm)
 */
 void PinochleGame::suit_independent_evaluation(const CardSet<Suits, PinochleRanks> &cs, vector<PinochleMelds> &pms)
 {
-    // Here we copy construct the provided CardSet so as to not interfere with original, and then obtain its private vector member variable employing a scoped pointer
+    /*
+        Here we copy construct the provided CardSet so as to not interfere with original, and then obtain its private 
+        vector member variable employing a scoped pointer.
+    */
     CardSet<Suits, PinochleRanks> temp(cs);
     std::vector<Card <Suits, PinochleRanks> > CardSet<Suits, PinochleRanks>::*cardsPtr = CardSet<Suits, PinochleRanks>::getVector();
     std::vector<Card <Suits, PinochleRanks> > cardsRef = (temp.*cardsPtr);

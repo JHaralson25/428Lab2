@@ -5,7 +5,8 @@
     Jacob Haralson: haralson.j@wustl.edu
     (HoldEmGame.h) declares the enum for HoldEmState, its operators,
     and the HoldEmGame class, alongside its 4 member variables,
-    6 member functions, and public constructor.
+    7 member functions, public constructor, static member variable,
+    and nested struct.
 */
 
 // All includes
@@ -29,6 +30,7 @@ enum class HoldEmState
     undefined
 };
 
+// Enum for ranks of hand in Hold 'Em game
 enum class HoldEmHandRank
 {
     xhigh,
@@ -44,7 +46,9 @@ enum class HoldEmHandRank
 };
 
 // HoldEmState overloaded operators
+// Overloaded ostream insewrtion operator
 ostream &operator<<(ostream &os, const HoldEmState &hes);
+// Overloaded increment operator
 HoldEmState &operator++(HoldEmState &hes);
 
 /*
@@ -53,13 +57,16 @@ HoldEmState &operator++(HoldEmState &hes);
 */
 class HoldEmGame : public Game
 {
-    // Public constructor and play method
 public:
+    // Public constructor and play method
     HoldEmGame(int argc, const char *argv[]);
     virtual int play();
+    // Static member variable
     static string stringVals[];
+    // Friending overloaded insertion operator for ranks enum
     friend std::ostream &operator<<(ostream &os, const HoldEmHandRank &hehr);
 
+    // Declaration of nested struct containing information about player hand info
     struct HandInfo
     {
         HandInfo(CardSet<Suits, HoldEmRanks> h, std::string n, HoldEmHandRank hr);
@@ -88,8 +95,8 @@ private:
     HoldEmHandRank holdem_hand_evaluation(const CardSet<Suits, HoldEmRanks> &hand);
 };
 
-// HoldEmHandRank overloaded operators
+// HoldEmHandRank overloaded ostream insertion operator
 std::ostream &operator<<(ostream &os, const HoldEmHandRank &hehr);
 
-// HandInfo overloaded operators
+// HandInfo overloaded less than comparrsion operator
 bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2);

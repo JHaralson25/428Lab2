@@ -5,8 +5,8 @@
     Jacob Haralson: haralson.j@wustl.edu
     (Card_T.h) declares a Card struct with 2 public
     member variables, 2 public member function, and a default constructor. It
-    also declares an ostream insertion operator for
-    Card.
+    also declares an ostream insertion operator for Card and two
+    functions for comparing cards.
 */
 
 // All includes

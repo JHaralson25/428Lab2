@@ -1,9 +1,9 @@
 /*
-    lab1.cpp
+    lab2.cpp
     Ethan Woolbert: e.d.woolbert@wustl.edu
     Monish Kumar: k.monish@wustl.edu
     Jacob Haralson: haralson.j@wustl.edu
-    (lab1.cpp) contains a function definition that creates
+    (lab2.cpp) contains a function definition that creates
     a pointer to a class of the corresponding game class. It
     also contains "main" the driver function for Pinochle
     or HoldEm with validates command line input, creates the

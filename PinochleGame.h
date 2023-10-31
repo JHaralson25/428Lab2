@@ -4,7 +4,9 @@
     Monish Kumar: k.monish@wustl.edu
     Jacob Haralson: haralson.j@wustl.edu
     (PinochleGame.h) declares the PinochleGame class,
-    alongside its 2 member variables, 5 member functions, a friended ostream insertion operator,
+    alongside its 2 member variables, 2 static member variables,
+    4 protected functions, 1 private function, and 
+    a friended ostream insertion operator,
     and a public constructor.
 */
 
@@ -20,7 +22,7 @@
 #include "CardSet_T.h"
 #include "PinochleDeck.h"
 
-// declaration of enum class Pinochlemelds that contains the possible melds a player can have
+// Declaration of enum class Pinochlemelds that contains the possible melds a player can have
 enum class PinochleMelds
 {
     dix,
@@ -40,6 +42,9 @@ enum class PinochleMelds
     insuitdoublerun
 };
 
+/*
+    overloaded ostream insertion operator for PinochleMelds
+*/
 std::ostream &operator<<(ostream &os, const PinochleMelds &pm);
 
 /*
@@ -53,6 +58,7 @@ public:
     PinochleGame(int argc, const char *argv[]);
     virtual int play();
 
+    // Declarations of static member functions
     static int pointValues[];
     static string pointStrings[];
     friend std::ostream &operator<<(ostream &os, const PinochleMelds &pm);

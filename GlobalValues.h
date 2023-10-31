@@ -17,6 +17,11 @@ const int PINOCHLE_DEAL_SIZE = 3;
 const int HOLD_EM_HAND_SIZE = 2;
 const int HOLD_EM_TOTAL_HAND_SIZE = 5;
 
+// Possible Hold 'Em positions
+const int HOLD_EM_PAIR_POS = 4;
+const int HOLD_EM_TRIP_POS = 3;
+const int HOLD_EM_QUAD_POS = 2;
+
 // Number of players that can play Pinochle
 const int PINOCHLE_PLAYER_CT = 4;
 

@@ -78,6 +78,10 @@ ostream &operator<<(ostream &os, const HoldEmState &hes)
 
 bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
 {
+    /*
+        Here we copy construct the provided CardSets so as to not interfere with originals, and then obtain their private 
+        vector member variable employing a scoped pointer.
+    */
     CardSet<Suits, HoldEmRanks> temp1(hi1.hand);
     CardSet<Suits, HoldEmRanks> temp2(hi2.hand);
     vector<Card <Suits, HoldEmRanks> > CardSet<Suits, HoldEmRanks>::*cardsPtr1 = CardSet<Suits, HoldEmRanks>::getVector();
@@ -85,9 +89,11 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
     vector<Card <Suits, HoldEmRanks> > cardsRef1 = (temp1.*cardsPtr1);
     vector<Card <Suits, HoldEmRanks> > cardsRef2 = (temp2.*cardsPtr2);
 
+    // Sort the vectors in order to better rank the cards
     sort(cardsRef1.begin(), cardsRef1.end(), lessRank<Suits, HoldEmRanks>);
     sort(cardsRef2.begin(), cardsRef2.end(), lessRank<Suits, HoldEmRanks>);
 
+    // Check that the correct number of cards exist in both hands
     if (cardsRef1.size() != HOLD_EM_TOTAL_HAND_SIZE)
     {
         return false;
@@ -98,15 +104,22 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
         return false;
     }
 
+    // Immeadiatly return of the rank is less than the other rank or switch
     if (hi1.handRank < hi2.handRank)
     {
         return true;
     }
+    else if (hi1.handRank > hi2.handRank)
+    {
+        return false;
+    }
 
+    // Check pairs
     if (hi1.handRank == HoldEmHandRank::pair && hi2.handRank == HoldEmHandRank::pair)
     {
+        // Get location of first pair
         int pairPos1;
-        for (int i = 0; i < HOLD_EM_TOTAL_HAND_SIZE - 1; ++i)
+        for (int i = 0; i < HOLD_EM_PAIR_POS; ++i)
         {
             if (cardsRef1[i].rank == cardsRef1[i + 1].rank)
             {
@@ -115,8 +128,9 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
             }
         }
 
+        // Get location of second pair
         int pairPos2;
-        for (int i = 0; i < HOLD_EM_TOTAL_HAND_SIZE - 1; ++i)
+        for (int i = 0; i < HOLD_EM_PAIR_POS; ++i)
         {
             if (cardsRef2[i].rank == cardsRef2[i + 1].rank)
             {
@@ -125,6 +139,7 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
             }
         }
 
+        // Check ordering of pairs
         if (cardsRef1[pairPos1].rank < cardsRef2[pairPos2].rank)
         {
             return true;
@@ -134,6 +149,7 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
             return false;
         }
 
+        // Otherwise check high card
         for (int i = HOLD_EM_TOTAL_HAND_SIZE - 1; i > -1; --i)
         {
             if (cardsRef1[i].rank < cardsRef2[i].rank)
@@ -146,14 +162,17 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
             }
         }
 
+        // Return false by default
         return false;
     }
 
+    // Check situation of two pairs
     if (hi1.handRank == HoldEmHandRank::twopair && hi2.handRank == HoldEmHandRank::twopair)
     {
+        // Get locations of both pairs for first hand
         int stPairPos1 = -1;
         int ndPairPos1 = -1;
-        for (int i = 0; i < HOLD_EM_TOTAL_HAND_SIZE - 1; ++i)
+        for (int i = 0; i < HOLD_EM_PAIR_POS; ++i)
         {
             if (cardsRef1[i].rank == cardsRef1[i + 1].rank)
             {
@@ -169,9 +188,10 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
             }
         }
 
+        // Get locations of both pairs for second hand
         int stPairPos2 = -1;
         int ndPairPos2 = -1;
-        for (int i = 0; i < HOLD_EM_TOTAL_HAND_SIZE - 1; ++i)
+        for (int i = 0; i < HOLD_EM_PAIR_POS; ++i)
         {
             if (cardsRef2[i].rank == cardsRef2[i + 1].rank)
             {
@@ -187,6 +207,7 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
             }
         }
 
+        // Check ordering of first and second pair and return accordingly
         if (cardsRef1[stPairPos1].rank < cardsRef2[stPairPos2].rank)
         {
             return true;
@@ -205,6 +226,7 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
             return false;
         }
 
+        // Otherwise check high card
         for (int i = HOLD_EM_TOTAL_HAND_SIZE - 1; i > -1; --i)
         {
             if (cardsRef1[i].rank < cardsRef2[i].rank)
@@ -217,13 +239,17 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
             }
         }
 
+        // Return false by default
         return false;
     }
 
-    if ((hi1.handRank == HoldEmHandRank::threeofakind && hi2.handRank == HoldEmHandRank::threeofakind) || (hi1.handRank == HoldEmHandRank::fullhouse && hi2.handRank == HoldEmHandRank::fullhouse))
+    // Logic for three of a kind and full house is the same so combine
+    if ((hi1.handRank == HoldEmHandRank::threeofakind && hi2.handRank == HoldEmHandRank::threeofakind) || 
+    (hi1.handRank == HoldEmHandRank::fullhouse && hi2.handRank == HoldEmHandRank::fullhouse))
     {
+        // Get location of first tripple
         int threePos1;
-        for (int i = 0; i < HOLD_EM_TOTAL_HAND_SIZE - 2; ++i)
+        for (int i = 0; i < HOLD_EM_TRIP_POS; ++i)
         {
             if (cardsRef1[i].rank == cardsRef1[i + 1].rank && cardsRef1[i + 1].rank == cardsRef1[i + 2].rank)
             {
@@ -232,8 +258,9 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
             }
         }
 
+        // Get location of second tripple
         int threePos2;
-        for (int i = 0; i < HOLD_EM_TOTAL_HAND_SIZE - 2; ++i)
+        for (int i = 0; i < HOLD_EM_TRIP_POS; ++i)
         {
             if (cardsRef2[i].rank == cardsRef2[i + 1].rank && cardsRef2[i + 1].rank == cardsRef2[i + 2].rank)
             {
@@ -242,6 +269,7 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
             }
         }
 
+        // Compare ranks of tripples
         if (cardsRef1[threePos1].rank < cardsRef2[threePos2].rank)
         {
             return true;
@@ -251,6 +279,7 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
             return false;
         }
 
+        // Otherwise check high card (did not ask but did anyway see readme)
         for (int i = HOLD_EM_TOTAL_HAND_SIZE - 1; i > -1; --i)
         {
             if (cardsRef1[i].rank < cardsRef2[i].rank)
@@ -263,21 +292,29 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
             }
         }
 
+        // Return false by default
         return false;
     }
 
-    if ((hi1.handRank == HoldEmHandRank::straight && hi2.handRank == HoldEmHandRank::straight) || (hi1.handRank == HoldEmHandRank::straightflush && hi2.handRank == HoldEmHandRank::straightflush))
+    // Logic for straight and straight flush is the same
+    if ((hi1.handRank == HoldEmHandRank::straight && hi2.handRank == HoldEmHandRank::straight) || 
+    (hi1.handRank == HoldEmHandRank::straightflush && hi2.handRank == HoldEmHandRank::straightflush))
     {
+        // Just check first card as they are already confirmed to be straights or straights flushes
         if (cardsRef1[0].rank < cardsRef2[0].rank)
         {
             return true;
         }
 
+        // Return false by default
         return false;
     }
 
-    if ((hi1.handRank == HoldEmHandRank::flush && hi2.handRank == HoldEmHandRank::flush) || (hi1.handRank == HoldEmHandRank::xhigh && hi2.handRank == HoldEmHandRank::xhigh))
+    // Logic for flush and xhigh are the same so combine
+    if ((hi1.handRank == HoldEmHandRank::flush && hi2.handRank == HoldEmHandRank::flush) || 
+    (hi1.handRank == HoldEmHandRank::xhigh && hi2.handRank == HoldEmHandRank::xhigh))
     {
+        // Just checkl high card for both
         for (int i = HOLD_EM_TOTAL_HAND_SIZE - 1; i > -1; --i)
         {
             if (cardsRef1[i].rank < cardsRef2[i].rank)
@@ -290,13 +327,16 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
             }
         }
 
+        // Return false by default
         return false;
     }
 
+    // Logic for four of a kind
     if (hi1.handRank == HoldEmHandRank::fourofakind && hi2.handRank == HoldEmHandRank::fourofakind)
     {
+        // Get location of four of a kind for first hand
         int fourPos1;
-        for (int i = 0; i < HOLD_EM_TOTAL_HAND_SIZE - 3; ++i)
+        for (int i = 0; i < HOLD_EM_QUAD_POS; ++i)
         {
             if (cardsRef1[i].rank == cardsRef1[i + 1].rank && cardsRef1[i + 1].rank == cardsRef1[i + 2].rank && cardsRef1[i + 2].rank == cardsRef1[i + 3].rank)
             {
@@ -305,8 +345,9 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
             }
         }
 
+        // Get location of four of a kind for second hand
         int fourPos2;
-        for (int i = 0; i < HOLD_EM_TOTAL_HAND_SIZE - 3; ++i)
+        for (int i = 0; i < HOLD_EM_QUAD_POS; ++i)
         {
             if (cardsRef2[i].rank == cardsRef2[i + 1].rank && cardsRef2[i + 1].rank == cardsRef2[i + 2].rank && cardsRef2[i + 2].rank == cardsRef2[i + 3].rank)
             {
@@ -315,6 +356,7 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
             }
         }
 
+        // Compare 4 of a kinds and check ranks
         if (cardsRef1[fourPos1].rank < cardsRef2[fourPos2].rank)
         {
             return true;
@@ -324,6 +366,7 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
             return false;
         }
 
+        // Check high card (this was not asked but we did it anyway see readme)
         for (int i = HOLD_EM_TOTAL_HAND_SIZE - 1; i > -1; --i)
         {
             if (cardsRef1[i].rank < cardsRef2[i].rank)
@@ -336,9 +379,11 @@ bool operator<(const HoldEmGame::HandInfo &hi1, const HoldEmGame::HandInfo &hi2)
             }
         }
 
+        // Return false by default
         return false;
     }
 
+    // Return false by default
     return false;
 }
 
@@ -490,23 +535,36 @@ void HoldEmGame::printBoard()
     board.print(cout, board.get_size());
 }
 
+/*
+    checkWinner method for checking and printing the winner of all the players
+    given HandInfo structs containing hands, names, and ranks.
+*/
 void HoldEmGame::checkWinner()
 {
+    // Create vector of HandInfo objects for players
     vector<HandInfo> handsInfo;
     for (long unsigned int i = 0; i < hands.size(); ++i)
     {
         handsInfo.push_back(HandInfo(hands[i], names[i], HoldEmHandRank::undefined));
     }
+
+    // Loop through and add cards from board to HandInfo objects and rank the hands
     for (long unsigned int i = 0; i < handsInfo.size(); ++i)
     {
+        // Copy construct board copy and add to HandInfo
         CardSet<Suits, HoldEmRanks> temp(board);
         while (!temp.is_empty())
         {
             temp >> handsInfo[i].hand;
         }
+        // Rank the hand
         handsInfo[i].handRank = holdem_hand_evaluation(handsInfo[i].hand);
     }
+
+    // Sort the vector of HandInfo structs
     sort(handsInfo.begin(), handsInfo.end());
+
+    // Print out sorted HandInfo structs
     cout << endl;
     for (long unsigned int i = 0; i < handsInfo.size(); ++i)
     {
@@ -566,7 +624,7 @@ HoldEmHandRank HoldEmGame::holdem_hand_evaluation(const CardSet<Suits, HoldEmRan
 
     sort(cardsRef.begin(), cardsRef.end(), lessRank<Suits, HoldEmRanks>);
 
-    if (cardsRef.size() != 5)
+    if (cardsRef.size() != HOLD_EM_TOTAL_HAND_SIZE)
     {
         return HoldEmHandRank::undefined;
     }
@@ -596,9 +654,12 @@ HoldEmHandRank HoldEmGame::holdem_hand_evaluation(const CardSet<Suits, HoldEmRan
     }
 
     // Check for four of a kind
-    if ((cardsRef[0].rank == cardsRef[1].rank && cardsRef[1].rank == cardsRef[2].rank && cardsRef[2].rank == cardsRef[3].rank) || ((cardsRef[1].rank == cardsRef[2].rank && cardsRef[2].rank == cardsRef[3].rank) && cardsRef[3].rank == cardsRef[4].rank))
+    for (int i = 0; i < HOLD_EM_QUAD_POS; ++i)
     {
-        return HoldEmHandRank::fourofakind;
+        if (cardsRef[i].rank == cardsRef[i + 1].rank && cardsRef[i + 1].rank == cardsRef[i + 2].rank && cardsRef[i + 2].rank == cardsRef[i + 3].rank)
+        {
+            return HoldEmHandRank::fourofakind;
+        }
     }
 
     // Check for fullhouse
@@ -608,43 +669,44 @@ HoldEmHandRank HoldEmGame::holdem_hand_evaluation(const CardSet<Suits, HoldEmRan
     }
 
     // Check for three of a kind
-    if (cardsRef[0].rank == cardsRef[1].rank && cardsRef[1].rank == cardsRef[2].rank)
+    for (int i = 0; i < HOLD_EM_TRIP_POS; ++i)
     {
-        return HoldEmHandRank::threeofakind;
-    }
-    if (cardsRef[1].rank == cardsRef[2].rank && cardsRef[2].rank == cardsRef[3].rank)
-    {
-        return HoldEmHandRank::threeofakind;
-    }
-    if (cardsRef[2].rank == cardsRef[3].rank && cardsRef[3].rank == cardsRef[4].rank)
-    {
-        return HoldEmHandRank::threeofakind;
+        if (cardsRef[i].rank == cardsRef[i + 1].rank && cardsRef[i + 1].rank == cardsRef[i + 2].rank)
+        {
+            return HoldEmHandRank::threeofakind;
+        }
     }
 
     // Check for twopair
-    if ((cardsRef[0].rank == cardsRef[1].rank) && (cardsRef[2].rank == cardsRef[3].rank))
+    bool foundFirstPair = false;
+    for (int i = 0; i < HOLD_EM_PAIR_POS; ++i)
     {
-        return HoldEmHandRank::twopair;
-    }
-    if ((cardsRef[0].rank == cardsRef[1].rank) && (cardsRef[3].rank == cardsRef[4].rank))
-    {
-        return HoldEmHandRank::twopair;
-    }
-    if ((cardsRef[1].rank == cardsRef[2].rank) && (cardsRef[3].rank == cardsRef[4].rank))
-    {
-        return HoldEmHandRank::twopair;
+        if (cardsRef[i].rank == cardsRef[i + 1].rank)
+        {
+            if (!foundFirstPair)
+            {
+                foundFirstPair = true;
+            }
+            else
+            {
+                return HoldEmHandRank::twopair;
+            }
+        }
     }
 
     // Check for pair
-    if ((cardsRef[0].rank == cardsRef[1].rank) || (cardsRef[1].rank == cardsRef[2].rank) || (cardsRef[2].rank == cardsRef[3].rank) || (cardsRef[3].rank == cardsRef[4].rank))
+    for (int i = 0; i < HOLD_EM_PAIR_POS; ++i)
     {
-        return HoldEmHandRank::pair;
+        if (cardsRef[i].rank == cardsRef[i + 1].rank)
+        {
+            return HoldEmHandRank::pair;
+        }
     }
 
     // Check for straightflush/straight
     if (cardsRef[0].rank == HoldEmRanks::two && cardsRef[1].rank == HoldEmRanks::three && cardsRef[2].rank == HoldEmRanks::four && cardsRef[3].rank == HoldEmRanks::five && cardsRef[4].rank == HoldEmRanks::ace)
     {
-        if (numClubs == 5 || numSpades == 5 || numDiamonds == 5 || numHearts == 5)
+        if (numClubs == HOLD_EM_TOTAL_HAND_SIZE || numSpades == HOLD_EM_TOTAL_HAND_SIZE || numDiamonds == HOLD_EM_TOTAL_HAND_SIZE || numHearts == HOLD_EM_TOTAL_HAND_SIZE)
         {
             return HoldEmHandRank::straightflush;
         }
@@ -655,7 +717,7 @@ HoldEmHandRank HoldEmGame::holdem_hand_evaluation(const CardSet<Suits, HoldEmRan
     }
     if ((++(cardsRef[0].rank) == cardsRef[1].rank) && (++(cardsRef[1].rank) == cardsRef[2].rank) && (++(cardsRef[2].rank) == cardsRef[3].rank) && (++(cardsRef[3].rank) == cardsRef[4].rank))
     {
-        if (numClubs == 5 || numSpades == 5 || numDiamonds == 5 || numHearts == 5)
+        if (numClubs == HOLD_EM_TOTAL_HAND_SIZE || numSpades == HOLD_EM_TOTAL_HAND_SIZE || numDiamonds == HOLD_EM_TOTAL_HAND_SIZE || numHearts == HOLD_EM_TOTAL_HAND_SIZE)
         {
             return HoldEmHandRank::straightflush;
         }
@@ -666,7 +728,7 @@ HoldEmHandRank HoldEmGame::holdem_hand_evaluation(const CardSet<Suits, HoldEmRan
     }
 
     // Check for flush
-    if (numClubs == 5 || numSpades == 5 || numDiamonds == 5 || numHearts == 5)
+    if (numClubs == HOLD_EM_TOTAL_HAND_SIZE || numSpades == HOLD_EM_TOTAL_HAND_SIZE || numDiamonds == HOLD_EM_TOTAL_HAND_SIZE || numHearts == HOLD_EM_TOTAL_HAND_SIZE)
     {
         return HoldEmHandRank::flush;
     }

@@ -18,7 +18,8 @@
 /*
     Declaration of CardSet class with a public print funtion,
     insertion operator, is_empty helper function, a get_size helper
-    function, a destructor, a public static function that return a scoped pointer to the cards member variable and a private vector member variable
+    function, a destructor, a public static function that return a scoped 
+    pointer to the cards member variable and a private vector member variable
     containing Card classes.
 */
 template <typename Suit, typename Rank>
@@ -29,6 +30,7 @@ public:
     CardSet<Suit, Rank> &operator>>(CardSet<Suit, Rank> &cs);
     bool is_empty();
     int get_size();
+    // Definition of static function
     static std::vector<Card <Suit, Rank> > CardSet::*getVector() { return &CardSet::cards; }
 
 protected:
