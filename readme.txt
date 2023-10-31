@@ -19,27 +19,88 @@ Going over the steps of the lab:
 
 As this lab builds upon the previous lab and the bulk of the classes remain the same, we will be going over the additions we have made to the classes rather than restating everything.
 
-Step 7: Card_T.h/cpp: We have added a lessSuit and lessRank functions. The functions both take in references to cards paramterized with a suit and rank, and return true if the suit or rank (respectively) of the first card is less than the second. Otherwise, the functions will return false.
+Step 7: Card_T.h/cpp: We have added a lessSuit and lessRank functions. The functions both take in references to cards paramterized with a suit and rank, 
+and return true if the suit or rank (respectively) of the first card is less than the second. Otherwise, the functions will return false.
 
-Step 8: We decided to use the complier provided copy constructor for CardSet. This is because the compiler provided copy constructor will produce a deep copy, and in the case of the vector member variable, will call its default copy constructor to copy it over to the new object. The std::vector copy constructor produces a deep copy as well, so we do not have to worry about acessing the same vector member variable as the original object.
+Step 8: We decided to use the complier provided copy constructor for CardSet. This is because the compiler provided copy constructor will produce a 
+deep copy, and in the case of the vector member variable, will call its default copy constructor to copy it over to the new object. The std::vector 
+copy constructor produces a deep copy as well, so we do not have to worry about acessing the same vector member variable as the original object.
 
-Step 9: CardSet_T.h: We added a public static member function that returns a scoped pointer to the cards member variable of the CardSet. This is an example of a controlled violation of encapsulation.
+Step 9: CardSet_T.h: We added a public static member function that returns a scoped pointer to the cards member variable of the CardSet. This is an 
+example of a controlled violation of encapsulation.
 
-Step 10: PinochleGame.h/cpp: We added an enum class PinochleMelds to the header file that contains all the different melds that pinochle can have (dix, offsuitmarriage, fortyjacks, pinochle, insuitmarriage, sixtyqueens, eightykings, hundredaces, insuitrun, doublepinochle, fourhundredjacks, sixhundredqueens, eighthundredkings, thousandaces, insuitdoublerun). In the source file, we created an array that we can index into by casting an object of that enum class to an int to get its appropriate point value.
+Step 10: PinochleGame.h/cpp: We added an enum class PinochleMelds to the header file that contains all the different melds that pinochle can have 
+(dix, offsuitmarriage, fortyjacks, pinochle, insuitmarriage, sixtyqueens, eightykings, hundredaces, insuitrun, doublepinochle, fourhundredjacks, 
+sixhundredqueens, eighthundredkings, thousandaces, insuitdoublerun). In the source file, we created an array that we can index into by casting an 
+object of that enum class to an int to get its appropriate point value.
 
-Step 11: PinochleGame.h/cpp: In the header file we declared an ostream insertion operator that takes a reference to an ostream as well as a const reference to a PinochleMelds object. In the source file, before defining the insertion operator, in a similar process to step 10, we created an array that we can index into by casting an object of that enum class to an int to get an appropriate string for that enum class. We then define the insertion operator to print out the label followed by the appropriate point value for a meld, done by indexing into both arrays.
+Step 11: PinochleGame.h/cpp: In the header file we declared an ostream insertion operator that takes a reference to an ostream as well as a const 
+reference to a PinochleMelds object. In the source file, before defining the insertion operator, in a similar process to step 10, we created an array 
+that we can index into by casting an object of that enum class to an int to get an appropriate string for that enum class. We then define the insertion 
+operator to print out the label followed by the appropriate point value for a meld, done by indexing into both arrays.
 
-Step 12: PinochleGame.h/cpp: In the header file we declare a private suit_independent_evaluation function that takes a constant reference to a CardSet paramterized with Suits,PinochleRanks and a reference to a vector of PinochleMelds. In the source file, we define said function, and before getting into specifics, the general purpose of this function is to find all the melds in the CardSet and push them onto the vector of PinochleMelds. Now getting into the specifics of the function, we first copy construct the CardSet as to not interfere with the original objects vector member variable. We then create a scoped pointer using the public static method defined in CardSet_T.h, and use it to access the vector member variable of the copied object. We then define variables to count each type of aces, kings, queens, and jacks. We then iterate through the hand and increment the appropriate variables if the cards is a match for any of them. We then check for each type of meld at the end, making sure to check higher priority melds ovefr lower priority ones (ie. we check for thousandaces over hundredaces), and push all the appropriate melds on the vector that was passed to us by reference.
+Step 12: PinochleGame.h/cpp: In the header file we declare a private suit_independent_evaluation function that takes a constant reference to a CardSet 
+paramterized with Suits,PinochleRanks and a reference to a vector of PinochleMelds. In the source file, we define said function, and before getting into 
+specifics, the general purpose of this function is to find all the melds in the CardSet and push them onto the vector of PinochleMelds. Now getting into 
+the specifics of the function, we first copy construct the CardSet as to not interfere with the original objects vector member variable. We then create a 
+scoped pointer using the public static method defined in CardSet_T.h, and use it to access the vector member variable of the copied object. We then define 
+variables to count each type of aces, kings, queens, and jacks. We then iterate through the hand and increment the appropriate variables if the cards is a 
+match for any of them. We then check for each type of meld at the end, making sure to check higher priority melds ovefr lower priority ones (ie. we check 
+for thousandaces over hundredaces), and push all the appropriate melds on the vector that was passed to us by reference.
 
-Step 13: PinochleGame.h/cpp: In the header file, we decalre a void printMelds() helper function that will be used to print the melds of all the players. In this source file, we edit the existing play() method to print out the melds after every turn. Specifically, after we print out the players and their hands using the printPlayers() method, we call the printMelds() function. Within this function, we create a vector of PinochleMelds and then iterate through every hand. Within every iteration, we make sure to first clear the vector of melds to ensure it is fresh, and then call the suit_independent_evaluation function on the hand. We then iterate through the PinochleMelds vector, and if any melds were added to it (there are cases where no melds are added), the player number alongside their melds are printed to make it clear which players hold which melds.
+Step 13: PinochleGame.h/cpp: In the header file, we decalre a void printMelds() helper function that will be used to print the melds of all the players. 
+In this source file, we edit the existing play() method to print out the melds after every turn. Specifically, after we print out the players and their 
+hands using the printPlayers() method, we call the printMelds() function. Within this function, we create a vector of PinochleMelds and then iterate 
+through every hand. Within every iteration, we make sure to first clear the vector of melds to ensure it is fresh, and then call the 
+suit_independent_evaluation function on the hand. We then iterate through the PinochleMelds vector, and if any melds were added to it (there are cases 
+where no melds are added), the player number alongside their melds are printed to make it clear which players hold which melds.
 
-Step 14: HoleEmGame.h/cpp: In the header we file, we added an enum class HoldEmRank that represent the different rankings of hands that a player can hold in TexasHoldEm (xhigh, pair, twopair, threeofakind, straight, flush fullhouse, fourofakind, straightflush, undefined). We also declare a public ostream insertion operator that takes a reference to an ostream and a constant reference to an object of type HoldEmRank. In the source file, we define said insertion operator. However, before that it should be note that similar to what we did in the PinochleGame class, we define a string array that we can use by casting an object of type HoldEmRank into an int in order to index into it and obtain an appropriate string corresponding to that rank. After this array, we then define the insertion operator to insert an appropriate string corresponding to the HoldEmRank object onto the ostream by casting and inexing into the aforementioned array.
+Step 14: HoleEmGame.h/cpp: In the header we file, we added an enum class HoldEmRank that represent the different rankings of hands that a player can 
+hold in TexasHoldEm (xhigh, pair, twopair, threeofakind, straight, flush fullhouse, fourofakind, straightflush, undefined). We also declare a public 
+ostream insertion operator that takes a reference to an ostream and a constant reference to an object of type HoldEmRank. In the source file, we define 
+said insertion operator. However, before that it should be note that similar to what we did in the PinochleGame class, we define a string array that we 
+can use by casting an object of type HoldEmRank into an int in order to index into it and obtain an appropriate string corresponding to that rank. After
+ this array, we then define the insertion operator to insert an appropriate string corresponding to the HoldEmRank object onto the ostream by casting 
+ and inexing into the aforementioned array.
 
-Step 15: HoldEmGame.h/cpp: In the header file we define a holdem_rank_evaluation that takes a constant reference to a CardSet paramterized with Suits,HoldEmRanks. In the source file, we define said function, whose general purpose (before getting into specifics), is to check for the possible HoldEmRanks a hand can hold and return the highest value one. Similar to its counterpart in PinochleGame, we first copy construct the CardSet as to not interfere with the original objects vector member variable. We then create a scoped pointer using the public static method defined in CardSet_T.h, and use it to access the vector member variable of the copied object. We the use the std::sort method to sort the cards by rank (employing the lessRank function), and then suit (employing the lessSuit function), as this is what we believed would best help us search for HoldEmRanks within the hand. To start off, if the hand size is not 5, we return the undefined rank. We then declare variables to count the number of spades, hearts, clubs, and diamond within the hands, and loop through the hand, incrementing the appropriate variables for each card hit. We first check for four of a kind by comparing the ranks of the different cards (keeping in mind the sorted property of the hand), and if appropriate return fourofakind. We then check for a fullhouse in a similar manner, and if appropriate return fullhouse. We then check for a flush by checking the four variables declared earlier and seeing if any of them equal 5, in which case a flush is present,and we return a flush. We then check for three of a kind by comparing adjacent cards (once again keeping in mind the sorted property of the hand), and if appropriate return threeofakind. We then check for twopair by once again chekcing adjacent cards in an appropriate manner to check if there are two pairs, and if appropriate return twopair. We then similary check if a single pair exists and if so return a pair. It should be noted for both the twopair and pair cases, we do not explicity check that the other cards are of differenr ranks, as if they were not the function would have already returned a better rank beforehand (ie.fourofakind, fullhouse). Lastly, we check for both a straighflush and a straight. Essentially, we first check if the hand matches the lowest possible straight, and if so we then check if all of the cards are of the same suit using the four variables that keep track of suit mentioned earlier (if any of them equal 5 specifically). If the second condition is fullfiled, we return straighflush, otherwise we just return a straight. After checking this base case, we then check if the first cards rank is one less than the seconds,second one less than third, third one less than fourth, , lastly checking if the fourth cards rank is one less than the fifth cards rank (again this is possible specifically because our hand is sorted by rank). If this condition is met, once again we check the variables that counted suits, and if applicable return straightflush, otherwise we just return a flush. Finally, if none of these ranks were ever discovered in the hand, we return an xhigh.
+Step 15: HoldEmGame.h/cpp: In the header file we define a holdem_rank_evaluation that takes a constant reference to a CardSet paramterized with Suits,
+HoldEmRanks. In the source file, we define said function, whose general purpose (before getting into specifics), is to check for the possible HoldEmRanks
+a hand can hold and return the highest value one. Similar to its counterpart in PinochleGame, we first copy construct the CardSet as to not interfere 
+with the original objects vector member variable. We then create a scoped pointer using the public static method defined in CardSet_T.h, and use it to 
+access the vector member variable of the copied object. We the use the std::sort method to sort the cards by rank (employing the lessRank function), 
+and then suit (employing the lessSuit function), as this is what we believed would best help us search for HoldEmRanks within the hand. To start off, 
+if the hand size is not 5, we return the undefined rank. We then declare variables to count the number of spades, hearts, clubs, and diamond within 
+the hands, and loop through the hand, incrementing the appropriate variables for each card hit. We first check for four of a kind by comparing the 
+ranks of the different cards (keeping in mind the sorted property of the hand), and if appropriate return fourofakind. We then check for a fullhouse 
+in a similar manner, and if appropriate return fullhouse. We then check for a flush by checking the four variables declared earlier and seeing if 
+any of them equal 5, in which case a flush is present,and we return a flush. We then check for three of a kind by comparing adjacent cards (once 
+again keeping in mind the sorted property of the hand), and if appropriate return threeofakind. We then check for twopair by once again chekcing 
+adjacent cards in an appropriate manner to check if there are two pairs, and if appropriate return twopair. We then similary check if a single 
+pair exists and if so return a pair. It should be noted for both the twopair and pair cases, we do not explicity check that the other cards are 
+of differenr ranks, as if they were not the function would have already returned a better rank beforehand (ie.fourofakind, fullhouse). Lastly, 
+we check for both a straighflush and a straight. Essentially, we first check if the hand matches the lowest possible straight, and if so we then 
+check if all of the cards are of the same suit using the four variables that keep track of suit mentioned earlier (if any of them equal 5 
+specifically). If the second condition is fullfiled, we return straighflush, otherwise we just return a straight. After checking this base case, 
+we then check if the first cards rank is one less than the seconds,second one less than third, third one less than fourth, , lastly checking if 
+the fourth cards rank is one less than the fifth cards rank (again this is possible specifically because our hand is sorted by rank). If this 
+condition is met, once again we check the variables that counted suits, and if applicable return straightflush, otherwise we just return a flush. 
+Finally, if none of these ranks were ever discovered in the hand, we return an xhigh.
 
-Step 16:
+Step 16: HoldEmGame.h/cpp: For this step we created a nested struct inside our HoldEmGame class. This struct conatined info related to a player
+and their current hand and ranking of that hand. We created an overloaded < comparison operator for the HandInfo struct. This overloaded < operator
+determined if the ranking of the hand of a player was greater or less than the other players hand. For pairs we first get the position of the pair
+we then compare the ranks of the pair and if they are the same we compare based on the high card. For two pair we get the position of the two pairs,
+compare them, and if they are the same we determine which is greater based on the remaining high card. For three of a kind we get the position of the
+three cards and compare them. We then also decided to make our program play by valid poker rules and compare the remaining cards for the high card. For the
+straigh we simply compare the 1st card of the sorted straight (to account for ace) to determine their order. For flush we simply recursivly compare based 
+on the high card. For the fullhouse we compare based on the 3 cards then we also decided to implement valid poker rules and compare the remaining pair of
+the fullhouse. For four of a kind we compare the 4 cards against each other and also we decided to implement valid poker rules and compare the remaining
+high cards of the 5 card hand. For the straight flush we compared using the same system as the straight where we looked at the first card (again to account
+for aces in the sorted list). The overloaded operator also just returned the comparision of just the ranks if they differed at all.
 
-Step 17: HoldEmGame.h/cpp: For this step we created a function called checkWinner() which will push back all of the player names, hands, and an undefined HoldEmHandRank enum value to a vector. The function then pushes back the info from the board, and runs our holdem_hand_evaluation function on each hand. Then, all hands are sorted from worst hand to best hand, and printed in that order.
+Step 17: HoldEmGame.h/cpp: For this step we created a function called checkWinner() which will push back all of the player names, hands, and 
+an undefined HoldEmHandRank enum value to a vector. The function then pushes back the info from the board, and runs our holdem_hand_evaluation 
+function on each hand. Then, all hands are sorted from worst hand to best hand, and printed in that order.
 
 ------------------------------------------------------------------------------
 
@@ -75,23 +136,25 @@ Global values:
 
 5. HOLD_EM_HAND_SIZE (2): Hand size for every player in Hold 'Em.
 
-6. PINOCHLE_PLAYER_CT (4): Required number of players for Pinochle.
+6. HOLD_EM_TOTAL_HAND_SIZE (5): Hand size of best combination of player and board.
 
-7. PINOCHLE_MAJOR_CT (2): Count of cards required for the "Major" Pinochle Melds
+7. PINOCHLE_PLAYER_CT (4): Required number of players for Pinochle.
 
-8. PINOCHLE_MINOR_CT (1): Count of cards required for the "Minor" Pinochle Melds
+8. PINOCHLE_MAJOR_CT (2): Count of cards required for the "Major" Pinochle Melds
 
-9. MIN_HOLD_EM_PLAYER_CT (2): The minimum number of players that can play Hold 'Em.
+9. PINOCHLE_MINOR_CT (1): Count of cards required for the "Minor" Pinochle Melds
 
-10. MAX_HOLD_EM_PLAYER_CT (9): The maximum number of players that can play Hold 'Em.
+10. MIN_HOLD_EM_PLAYER_CT (2): The minimum number of players that can play Hold 'Em.
 
-11. HOLD_EM_FLOP_SIZE (3): Size of the flop for Hold 'Em. Will most likely never be
+11. MAX_HOLD_EM_PLAYER_CT (9): The maximum number of players that can play Hold 'Em.
+
+12. HOLD_EM_FLOP_SIZE (3): Size of the flop for Hold 'Em. Will most likely never be
     changed.
 
-12. HOLD_EM_NAME_STR ("HoldEm"): Name that a player should pass to the program in order
+13. HOLD_EM_NAME_STR ("HoldEm"): Name that a player should pass to the program in order
     to play the game Hold 'Em.
 
-13. PINOCHLE_NAME_STR ("Pinochle") Name that a player should pass to the program in order
+14. PINOCHLE_NAME_STR ("Pinochle") Name that a player should pass to the program in order
     to play the game Pinochle.
 
 ------------------------------------------------------------------------------
@@ -100,165 +163,367 @@ Errors:
 We were fortunate enough not to run into any major errors.
 
 ------------------------------------------------------------------------------
-Example Output:
 
-Pinochle Output:
+Tests:
 
-Without Melds Present:
-Player: A
-JS AD KC 
-KS JC KD 
-JC JS JH 
-QS QH 10D 
+    Memory leaks were checked using valgrind.
 
-Player: B
-9H JH QD 
-KC 10S QD 
-10C 10H KD 
-QC AD 10H 
+    [e.d.woolbert@linuxlab002 428Lab2]$ valgrind --leak-check=full ./lab2 Pinochle ethan mo libby lowell
+    ==2180== Memcheck, a memory error detector
+    ==2180== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+    ==2180== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+    ==2180== Command: ./lab2 Pinochle ethan mo libby lowell
+    ==2180==
 
-Player: C
-9C 10S 10C 
-JD KH 9D 
-AH QH AH 
-QC KH 9S 
-
-Player: D
-JD AS AC 
-AC 9D QS 
-AS 9S KS 
-10D 9H 9C 
+    (Removed program output for conciseness)
+    
+    ==2180== 
+    ==2180== HEAP SUMMARY:
+    ==2180==     in use at exit: 0 bytes in 0 blocks
+    ==2180==   total heap usage: 51 allocs, 51 frees, 76,257 bytes allocated
+    ==2180== 
+    ==2180== All heap blocks were freed -- no leaks are possible
+    ==2180== 
+    ==2180== For lists of detected and suppressed errors, rerun with: -s
+    ==2180== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 
 
 
+    [e.d.woolbert@linuxlab002 428Lab2]$ valgrind --leak-check=full ./lab2 HoldEm ethan mo libby lowell
+    ==3228== Memcheck, a memory error detector
+    ==3228== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+    ==3228== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+    ==3228== Command: ./lab2 HoldEm ethan mo libby lowell
+    ==3228==
 
+    (Removed program output for conciseness)
 
-Would you like to end the game? (yes/no): 
-
-With Melds Present:
-
-Player: A
-QH AH 10S 
-9C QC 10H 
-KS KS AC 
-JC AS QS 
-
-Player: B
-JH AS AD 
-10D QD AH 
-KH KC QD 
-JC 9D AC 
-
-Player: C
-10C JH KD 
-QH JD 9C 
-KD QS 9D 
-JS 10C QC 
-
-Player: D
-KH 10S 10D 
-9S JS AD 
-9S 10H 9H 
-JD KC 9H 
-
-
-Player 2: hundredaces 100
- 
-Player 3: pinochle 40
- 
-
-Would you like to end the game? (yes/no): 
-
-
-HoldEm Output:
+    ==3228== 
+    ==3228== HEAP SUMMARY:
+    ==3228==     in use at exit: 0 bytes in 0 blocks
+    ==3228==   total heap usage: 93 allocs, 93 frees, 77,237 bytes allocated
+    ==3228== 
+    ==3228== All heap blocks were freed -- no leaks are possible
+    ==3228== 
+    ==3228== For lists of detected and suppressed errors, rerun with: -s
+    ==3228== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 
 
 
-Example Output When Wrong Input Given (showcasing our usage message):
+    Example Pinochle Outputs:
 
-[k.monish@linuxlab004 428Lab2]$ ./lab2 Pinochle A B C
-Usage: ./lab2 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)
+    Example Output 1:
+    [e.d.woolbert@linuxlab002 428Lab2]$ ./lab2 Pinochle ethan mo libby lowell
+    Player: ethan
+    KH AD AS 
+    9D AS KS 
+    KS 9C KC 
+    KD JC 9H 
 
-[k.monish@linuxlab004 428Lab2]$ ./lab2 HoldEm A B C D E F G H I J K L M N O P
-Usage: ./lab2 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)
+    Player: mo
+    JH AC JS 
+    JS JD 9C 
+    9D JC 10H 
+    10D 10S QC 
+
+    Player: libby
+    KH QH QD 
+    KD JD AH 
+    AC KC 9S 
+    9H QS 10C 
+
+    Player: lowell
+    10H 10S AH 
+    QD 10C AD 
+    QS 10D JH 
+    QC QH 9S 
+
+    Player ethan:
+        eightykings 80
+    Player mo:
+        fortyjacks 40
+    Player libby:
+        pinochle 40
+    Player lowell:
+        sixtyqueens 60
+
+    Would you like to end the game? (yes/no): 
+    no
+    Player: ethan
+    10D AC JD 
+    10H JD 10C 
+    KH QS AH 
+    KS KC QD 
+
+    Player: mo
+    KS QH QH 
+    AH QC JC 
+    10D KC JC 
+    AS 9H KD 
+
+    Player: libby
+    9S JS 9S 
+    KD 10S 10S 
+    JH AD QD 
+    AC 9H 10H 
+
+    Player: lowell
+    9C 9C 10C 
+    JH 9D AD 
+    9D JS QS 
+    AS KH QC 
+
+    Player ethan:
+        pinochle 40
+    Player mo:
+    Player libby:
+    Player lowell:
+
+    Would you like to end the game? (yes/no): 
+    yes
+
+    This output ran correctly given the inputs from the player.
+
+    Example Output 2:
+    [e.d.woolbert@linuxlab002 428Lab2]$ ./lab2 Pinochle ethan mo libby lowell
+    Player: ethan
+    JD KD QH 
+    AC QD 9C 
+    9S AD 10C 
+    AH 10S JC 
+
+    Player: mo
+    AD AC AS 
+    9H KC 10C 
+    AH 9S QC 
+    9D QC 9C 
+
+    Player: libby
+    AS JH 10S 
+    JS KD 9D 
+    JC 10H QS 
+    QH JD JH 
+
+    Player: lowell
+    KH JS 10D 
+    KS 10D 10H 
+    KH KC KS 
+    9H QS QD 
+
+    Player ethan:
+    Player mo:
+        hundredaces 100
+    Player libby:
+        fortyjacks 40
+        pinochle 40
+    Player lowell:
+
+    Would you like to end the game? (yes/no): 
+    no
+    Player: ethan
+    9H JH QH 
+    QC AH JD 
+    KH 9C AS 
+    10D JH QS 
+
+    Player: mo
+    KH 10S 10H 
+    10D QD KC 
+    JS KD KS 
+    9H KC AD 
+
+    Player: libby
+    JC KD 10C 
+    QH 10S 9C 
+    AS 9D QS 
+    AC JC AD 
+
+    Player: lowell
+    QD AH KS 
+    JD 9D JS 
+    9S AC 10C 
+    9S QC 10H 
+
+    Player ethan:
+        pinochle 40
+    Player mo:
+        eightykings 80
+    Player libby:
+    Player lowell:
+
+    Would you like to end the game? (yes/no): 
+    yes
+
+    This output also ran correctly given the input from the player
 
 
 
+    Example Hold 'Em Outputs:
 
+    Example Output 1:
+    [e.d.woolbert@linuxlab002 428Lab2]$ ./lab2 HoldEm a b c d e f g h
+    Player: a
+    5D 6C 
 
+    Player: b
+    4D 3D 
 
+    Player: c
+    QH KD 
 
+    Player: d
+    10H AH 
 
+    Player: e
+    2H QD 
 
+    Player: f
+    4C 9H 
 
+    Player: g
+    7H 2D 
 
+    Player: h
+    7D 5H 
 
-Would you like to end the game? (yes/no): 
-n
-Player: ethan
-4S 2D 
+    BOARD (flop): 9S 9C 3S 
 
-Player: libby
-7C 5D 
+    Name: a
+    Hand: 5D 6C 3S 9C 9S 
+    Rank: pair
 
-Player: mo
-AS 6C 
+    Name: g
+    Hand: 7H 2D 3S 9C 9S 
+    Rank: pair
 
-Player: jacob
-QC 6S 
+    Name: h
+    Hand: 7D 5H 3S 9C 9S 
+    Rank: pair
 
-Player: lowell
-JH 9H 
+    Name: e
+    Hand: 2H QD 3S 9C 9S 
+    Rank: pair
 
-Player: a
-9C 3H 
+    Name: c
+    Hand: QH KD 3S 9C 9S 
+    Rank: pair
 
-Player: b
-10C KD 
+    Name: d
+    Hand: 10H AH 3S 9C 9S 
+    Rank: pair
 
-Player: c
-JD 4D 
+    Name: b
+    Hand: 4D 3D 3S 9C 9S 
+    Rank: twopair
 
-BOARD (flop): 3C 6H 5C 
-Name: c
-Hand: JD 4D 5C 6H 3C 
-Rank: xhigh
+    Name: f
+    Hand: 4C 9H 3S 9C 9S 
+    Rank: threeofakind
 
+    BOARD (turn): 9S 9C 3S 8C 
+    BOARD (river): 9S 9C 3S 8C KS 
+    Would you like to end the game? (yes/no): 
+    yes
 
-Name: lowell
-Hand: JH 9H 5C 6H 3C 
-Rank: xhigh
+    The program ran correctly given the input from the user.
 
+    Example Output 2:
+    [e.d.woolbert@linuxlab002 428Lab2]$ ./lab2 HoldEm a b c d
+    Player: a
+    7D KS 
 
-Name: b
-Hand: 10C KD 5C 6H 3C 
-Rank: xhigh
+    Player: b
+    7H 8S 
 
+    Player: c
+    AH 4D 
 
-Name: a
-Hand: 9C 3H 5C 6H 3C 
-Rank: pair
+    Player: d
+    KD 9C 
 
+    BOARD (flop): 6H 9H 9D 
 
-Name: libby
-Hand: 7C 5D 5C 6H 3C 
-Rank: pair
+    Name: b
+    Hand: 7H 8S 9D 9H 6H 
+    Rank: pair
 
+    Name: a
+    Hand: 7D KS 9D 9H 6H 
+    Rank: pair
 
-Name: jacob
-Hand: QC 6S 5C 6H 3C 
-Rank: pair
+    Name: c
+    Hand: AH 4D 9D 9H 6H 
+    Rank: pair
 
+    Name: d
+    Hand: KD 9C 9D 9H 6H 
+    Rank: threeofakind
 
-Name: mo
-Hand: AS 6C 5C 6H 3C 
-Rank: pair
+    BOARD (turn): 6H 9H 9D 4S 
+    BOARD (river): 6H 9H 9D 4S JC 
+    Would you like to end the game? (yes/no): 
+    no
+    Player: a
+    QH KH 
 
+    Player: b
+    KD 7D 
 
-Name: ethan
-Hand: 4S 2D 5C 6H 3C 
-Rank: straight
+    Player: c
+    8H JC 
 
+    Player: d
+    9D 10D 
 
-BOARD (turn): 3C 6H 5C 10H 
-BOARD (river): 3C 6H 5C 10H 2H 
+    BOARD (flop): 5H 3D JD 
+
+    Name: d
+    Hand: 9D 10D JD 3D 5H 
+    Rank: xhigh
+
+    Name: b
+    Hand: KD 7D JD 3D 5H 
+    Rank: xhigh
+
+    Name: a
+    Hand: QH KH JD 3D 5H 
+    Rank: xhigh
+
+    Name: c
+    Hand: 8H JC JD 3D 5H 
+    Rank: pair
+
+    BOARD (turn): 5H 3D JD AD 
+    BOARD (river): 5H 3D JD AD 10C 
+    Would you like to end the game? (yes/no): 
+    yes
+
+    The program ran correctly given the input from the user.
+
+    Testing inpropper input (All inpropper inputs correctly failed to run and output the correct usage message):
+        [e.d.woolbert@linuxlab002 428-lab2]$ ./lab2 Pinochle
+        Usage: ./lab2 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)
+        
+        [e.d.woolbert@linuxlab002 428-lab2]$ ./lab2 Pino chle
+        Usage: ./lab2 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)
+        
+        [e.d.woolbert@linuxlab002 428-lab2]$ ./lab2 HoldEm
+        Usage: ./lab2 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)
+        
+        [e.d.woolbert@linuxlab002 428-lab2]$ ./lab2 Hold Em
+        Usage: ./lab2 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)
+        
+        [e.d.woolbert@linuxlab002 428-lab2]$ ./lab2 HoldEm p1
+        Usage: ./lab2 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)
+        
+        [e.d.woolbert@linuxlab002 428-lab2]$ ./lab2 HoldEm p1 p2 p3 p4 p5 p6 p7 p8 p9 p10
+        Usage: ./lab2 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)
+        
+        [e.d.woolbert@linuxlab002 428-lab2]$ ./lab2 Pinochle p1 p2 p3 p4 p5
+        Usage: ./lab2 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)
+
+        [k.monish@linuxlab004 428Lab2]$ ./lab2 Pinochle A B C
+        Usage: ./lab2 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)
+
+        [k.monish@linuxlab004 428Lab2]$ ./lab2 HoldEm A B C D E F G H I J K L M N O P
+        Usage: ./lab2 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)

@@ -32,7 +32,7 @@ ostream &operator<<(ostream &os, const Card<t_suit, t_rank> &s)
 }
 
 /*
-*   Definition of lessRank. It returns true if the rank of the first card is less than the rank of the second card, and otherwise return false.
+    Definition of lessRank. It returns true if the rank of the first card is less than the rank of the second card, and otherwise return false.
 */
 template <typename t_suit, typename t_rank>
 bool lessRank(const Card<t_suit, t_rank>& c1, const Card<t_suit, t_rank>& c2) {
@@ -40,8 +40,8 @@ bool lessRank(const Card<t_suit, t_rank>& c1, const Card<t_suit, t_rank>& c2) {
 }
 
 /*
- *   Definition of lessSuit. It returns true if the suit of the first card is less than the suit of the second card, and otherwise return false.
- */
+    Definition of lessSuit. It returns true if the suit of the first card is less than the suit of the second card, and otherwise return false.
+*/
 template <typename t_suit, typename t_rank>
 bool lessSuit(const Card<t_suit, t_rank>& c1, const Card<t_suit, t_rank>& c2) {
     return less<t_suit>{}(c1.suit, c2.suit) || ((c1.suit == c2.suit) && less<t_rank>{}(c1.rank, c2.rank));

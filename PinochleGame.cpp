@@ -107,12 +107,13 @@ void PinochleGame::printMelds()
     {
         pinochleCombos.clear();
         suit_independent_evaluation(hands[i], pinochleCombos);
-        cout << "Player " << i + 1 << ":" << endl;
+        cout << "Player " << names[i] << ":" << endl;
         for (long unsigned int j = 0; j < pinochleCombos.size(); ++j)
         {
             cout << "   " << pinochleCombos[j];
         }
     }
+    cout << endl;
 }
 
 /*
@@ -129,7 +130,7 @@ void PinochleGame::collectHands()
 }
 
 /*
-    array the stores each meld within the enum class respective point values
+    Array that stores each meld within the enum class respective point values
 */
 int PinochleGame::pointValues[] = {
     10,     // dix
@@ -150,7 +151,7 @@ int PinochleGame::pointValues[] = {
 };
 
 /*
-    array the stores each meld within the enum class respective output strings
+    Array that stores each meld within the enum class respective output strings
 */
 string PinochleGame::pointStrings[] = {
     "dix",  
@@ -171,7 +172,8 @@ string PinochleGame::pointStrings[] = {
 };
 
 /*
-    ostream insertion operator that takes a reference to an ostream and PinochleMeld and displays apprpriate information using the above defined arrays
+    ostream insertion operator that takes a reference to an ostream and PinochleMeld 
+    and displays apprpriate information using the above defined arrays
 */
 std::ostream &operator<<(ostream& os, const PinochleMelds& pm)
 {
@@ -180,42 +182,43 @@ std::ostream &operator<<(ostream& os, const PinochleMelds& pm)
 }
 
 /*
-    suit_independent_evaluation function that that takes a const reference to a CardSet and a reference to a vector of PinochleMelds, iterates through the vector of a copy of the CardSet, and pushes all the melds onto the vector
+    suit_independent_evaluation function that that takes a const reference to a CardSet and a reference to a vector of 
+    PinochleMelds, iterates through the vector of a copy of the CardSet, and pushes all the melds onto the vector
 */
 void PinochleGame::suit_independent_evaluation(const CardSet<Suits, PinochleRanks> &cs, vector<PinochleMelds> &pms)
 {
-    //here we copy construct the provided CardSet so as to not interfere with original, and then obtain its private vector member variable employing a scoped pointer
+    // Here we copy construct the provided CardSet so as to not interfere with original, and then obtain its private vector member variable employing a scoped pointer
     CardSet<Suits, PinochleRanks> temp(cs);
     std::vector<Card <Suits, PinochleRanks> > CardSet<Suits, PinochleRanks>::*cardsPtr = CardSet<Suits, PinochleRanks>::getVector();
     std::vector<Card <Suits, PinochleRanks> > cardsRef = (temp.*cardsPtr);
 
-    //counting aces
+    // Counting aces
     int as  = 0;
     int ah = 0;
     int ad  = 0;
     int ac = 0;
 
-    //counting kings
+    // Counting kings
     int ks = 0;
     int kh = 0;
     int kd = 0;
     int kc = 0;
 
-    //counting queens
+    // Counting queens
     int qs = 0;
     int qh = 0;
     int qd = 0;
     int qc = 0;
 
-    //counting jacks
+    // Counting jacks
     int js = 0;
     int jh = 0;
     int jd = 0;
     int jc = 0;
 
-    //iterating through hands
+    // Iterating through hands
     for (long unsigned int i = 0; i < cardsRef.size(); ++i){
-        //we check by rank and then by suit
+        // We check by rank and then by suit
         if (cardsRef[i].rank == PinochleRanks::ace){
             if (cardsRef[i].suit == Suits::spades){
                 ++as;
@@ -292,7 +295,7 @@ void PinochleGame::suit_independent_evaluation(const CardSet<Suits, PinochleRank
         }
     }
 
-    //checking aces
+    // Checking aces
     if (as == PINOCHLE_MAJOR_CT && ah == PINOCHLE_MAJOR_CT && ad == PINOCHLE_MAJOR_CT && ac == PINOCHLE_MAJOR_CT)
     {
         pms.push_back(PinochleMelds::thousandaces);
@@ -302,7 +305,7 @@ void PinochleGame::suit_independent_evaluation(const CardSet<Suits, PinochleRank
         pms.push_back(PinochleMelds::hundredaces);
     }
 
-    //checking kings
+    // Checking kings
     if (ks == PINOCHLE_MAJOR_CT && kh == PINOCHLE_MAJOR_CT && kd == PINOCHLE_MAJOR_CT && kc == PINOCHLE_MAJOR_CT)
     {
         pms.push_back(PinochleMelds::eighthundredkings);
@@ -312,7 +315,7 @@ void PinochleGame::suit_independent_evaluation(const CardSet<Suits, PinochleRank
         pms.push_back(PinochleMelds::eightykings);
     }
 
-    //checking queens
+    // Checking queens
     if (qs == PINOCHLE_MAJOR_CT && qh == PINOCHLE_MAJOR_CT && qd == PINOCHLE_MAJOR_CT && qc == PINOCHLE_MAJOR_CT)
     {
         pms.push_back(PinochleMelds::sixhundredqueens);
@@ -322,7 +325,7 @@ void PinochleGame::suit_independent_evaluation(const CardSet<Suits, PinochleRank
         pms.push_back(PinochleMelds::sixtyqueens);
     }
 
-    // checking jacks
+    // Checking jacks
     if (js == PINOCHLE_MAJOR_CT && jh == PINOCHLE_MAJOR_CT && jd == PINOCHLE_MAJOR_CT && jc == PINOCHLE_MAJOR_CT)
     {
         pms.push_back(PinochleMelds::fourhundredjacks);
@@ -332,7 +335,7 @@ void PinochleGame::suit_independent_evaluation(const CardSet<Suits, PinochleRank
         pms.push_back(PinochleMelds::fortyjacks);
     }
 
-    //checking for pinochle combos
+    // Checking for pinochle combos
     if (jd == PINOCHLE_MAJOR_CT && qs == PINOCHLE_MAJOR_CT)
     {
         pms.push_back(PinochleMelds::doublepinochle);

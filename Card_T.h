@@ -29,19 +29,19 @@ template <typename t_suit, typename t_rank>
 std::ostream &operator<<(std::ostream &os, const Card<t_suit, t_rank> &c);
 
 /*
-*   Template declaration lessRank function
-*   Returns true if first card's rank is less than the second
-*   card's rank or if the ranks are equal and the first card's
-*   suit is less than the second's
+    Template declaration lessRank function
+    Returns true if first card's rank is less than the second
+    card's rank or if the ranks are equal and the first card's
+    suit is less than the second's
 */
 template <typename t_suit, typename t_rank>
 bool lessRank(const Card<t_suit, t_rank>& c1, const Card<t_suit, t_rank>& c2);
 
 /*
-*   Template declaration for lessSuit function
-*   Returns true if first card's suit is less than the second
-*   card's suit or if the suit are equal and the first card's
-*   rank is less than the second's
+    Template declaration for lessSuit function
+    Returns true if first card's suit is less than the second
+    card's suit or if the suit are equal and the first card's
+    rank is less than the second's
 */
 template <typename t_suit, typename t_rank>
 bool lessSuit(const Card<t_suit, t_rank>& c1, const Card<t_suit, t_rank>& c2);
@@ -62,10 +62,10 @@ struct Card
 };
 
 /*
-*   Template declaration for lessSuit function
-*   Returns true if first card's suit is less than the second
-*   card's suit or if the suit are equal and the first card's
-*   rank is less than the second's
+    Template declaration for lessSuit function
+    Returns true if first card's suit is less than the second
+    card's suit or if the suit are equal and the first card's
+    rank is less than the second's
 */
 
 // Inclusion gaurds for Card_T.cpp
