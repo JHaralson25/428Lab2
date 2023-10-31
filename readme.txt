@@ -179,8 +179,8 @@ Global values:
 
 Errors:
 We were fortunate enough not to run into any major errors. The only thing we really had problems with
-was the pointer dereferencing for the protected vector point. We had to use a scoped pointer. This worked
-perfectly. There were no other major error besides basic syntax error.
+was the pointer dereferencing for the protected vector pointer. We had to use a scoped pointer. This worked
+perfectly. There were no other major errors besides basic syntax errors.
 
 ------------------------------------------------------------------------------
 
@@ -588,6 +588,21 @@ Tests:
         [k.monish@linuxlab004 428Lab2]$ ./lab2 HoldEm A B C D E F G H I J K L M N O P
         Usage: ./lab2 <gametype> (Pinochle / HoldEm) <player name> for Pinochle Player CT (4) / HoldEm Player CT (2-9)
 
-    
 
-    Result of echo on program
+
+    Result of echo $? for both programs:
+    [e.d.woolbert@linuxlab002 428Lab2]$ ./lab2 Pinochle a b c d
+
+    (Removed program output for conciseness)
+
+    [e.d.woolbert@linuxlab002 428Lab2]$ echo $?
+    0
+
+
+
+    [e.d.woolbert@linuxlab002 428Lab2]$ ./lab2 HoldEm a b c d e f g h
+
+    (Removed program output for conciseness)
+
+    [e.d.woolbert@linuxlab002 428Lab2]$ echo $?
+    0
